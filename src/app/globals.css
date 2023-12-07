@@ -3,9 +3,13 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: rgb(0, 0, 0);
-  --background-start-rgb: rgb(214, 219, 220);
-  --background-end-rgb: rgb(255, 255, 255);
+  --bg-primary: rgb(238,238,238);
+  --light-blue: rgb(174,228,237);
+  --aqua-blue: rgb(95,183,207);
+  --light-purple: rgb(90,121,200);
+  --dark-purple: rgb(60,51,154);
+  --light-text: rgb(255,255,255);
+  --dark-text: rgb(0,0,0);
 }
 
 @media (prefers-color-scheme: dark) {
