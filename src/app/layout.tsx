@@ -1,7 +1,12 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
+<<<<<<<<< Temporary merge branch 1
+import './globals.css'
+import { useLinkClickHandler } from 'react-router-dom'
+=========
 import './globals.css';
 import { UserContextProvider } from '../features/user/UserContextProvider';
+>>>>>>>>> Temporary merge branch 2
 
 const inter = Inter({ subsets: ['latin'] })
 
