@@ -19,8 +19,8 @@ export default function RootLayout({
   return (
     <UserContextProvider>
       <html lang="en">
-        <HamburgerMenu />
         <body className={inter.className}>
+        <HamburgerMenu />
           <div>
             {children}
           </div> 
