@@ -21,7 +21,7 @@ export default function RootLayout({
     <UserContextProvider>
       <html lang="en">
         <body className={inter.className}>
-          <HamburgerMenu />
+        <HamburgerMenu />
           <div>
             {children}
           </div> 
