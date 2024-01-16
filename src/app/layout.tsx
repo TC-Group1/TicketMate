@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google'
 import './globals.css';
 import { UserContextProvider } from '../features/user/UserContextProvider';
 import HamburgerMenu from '@/components/HamburgerMenu/HamburgerMenu';
+import Sidebar from '@/components/Sidebar/Sidebar';
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -19,8 +20,8 @@ export default function RootLayout({
   return (
     <UserContextProvider>
       <html lang="en">
-        <HamburgerMenu />
         <body className={inter.className}>
+          <HamburgerMenu />
           <div>
             {children}
           </div> 

@@ -1,13 +1,17 @@
-
 .header{
-    padding: 2rem;
+    padding: 1rem;
     background-color: rgb(95,183,207);
     display: flex;
     justify-content: space-between;
+    border-bottom: solid;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-width: 0.5px;
 }
 
 .headerComponent{
-    font-size: 30px;
+    font-size: 1.5vw;
 }
 
 .welcomeText{
@@ -17,4 +21,5 @@
 
 .hamburgerButton{
     width: 5vh;
+    cursor: pointer;
 }
