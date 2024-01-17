@@ -7,12 +7,13 @@ import { useQuery } from '@tanstack/react-query';
 const authenticate = (username: string, password: string) => {
 
   const baseURL: string | undefined = config.NEXT_API_BASEURL;
+  const userAPIEndpoint: string | undefined = config.NEXT_API_USER_ENDPOINT;
 
   const {isPending, data, error } = useQuery({
   queryKey: ['userData'],
   queryFn: async () => {
     try {
-      const response = await fetch(`${baseURL}/api/user/user=${username}&password=${password}`);
+      const response = await fetch(`${baseURL}${userAPIEndpoint}/user=${username}&password=${password}`);
       const data = await response.json();
       return data;
     } catch (error: any) {

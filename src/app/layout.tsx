@@ -21,8 +21,8 @@ export default function RootLayout({
     <ReactQueryClientProvider>
       <UserContextProvider>
         <html lang="en">
-          <HamburgerMenu />
           <body className={inter.className}>
+          <HamburgerMenu />
             <div>
               {children}
             </div> 
