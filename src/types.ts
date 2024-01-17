@@ -25,3 +25,13 @@ export interface UserContext {
     setIsLoading: React.Dispatch<React.SetStateAction<Boolean>>;
     handleLoginSubmit: (username: string, password: string, event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 }
+
+export interface Ticket {
+    feature: string | undefined;
+    assignees: Array<string> | undefined;
+    priority: string | undefined;
+    dateCreated: string | undefined;
+    status: string | undefined;
+    documentation: string | undefined;
+    files: Array<string> | undefined;
+}
