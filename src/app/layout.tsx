@@ -4,6 +4,7 @@ import './globals.css';
 import { UserContextProvider } from '../features/user/UserContextProvider';
 import HamburgerMenu from '@/components/HamburgerMenu/HamburgerMenu';
 import Sidebar from '@/components/Sidebar/Sidebar';
+import { ReactQueryClientProvider } from '@/features/user/query/QueryClientProvider';
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -18,15 +19,17 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <UserContextProvider>
-      <html lang="en">
-        <body className={inter.className}>
-        <HamburgerMenu />
-          <div>
-            {children}
-          </div> 
-          </body>
-      </html>
-    </UserContextProvider>
+    <ReactQueryClientProvider>
+      <UserContextProvider>
+        <html lang="en">
+          <body className={inter.className}>
+          <HamburgerMenu />
+            <div>
+              {children}
+            </div> 
+            </body>
+        </html>
+      </UserContextProvider>
+    </ReactQueryClientProvider>
   )
 }
