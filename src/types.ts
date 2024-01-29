@@ -45,3 +45,13 @@ export interface ModalProps {
   content: any;
   handleCancel: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
+
+export interface Ticket {
+    feature: string | undefined;
+    assignees: Array<string> | undefined;
+    priority: string | undefined;
+    dateCreated: string | undefined;
+    status: string | undefined;
+    documentation: string | undefined;
+    files: Array<string> | undefined;
+}
