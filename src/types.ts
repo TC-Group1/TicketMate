@@ -1,27 +1,47 @@
-
-import { CSSProperties } from 'react';
+import { CSSProperties, useRef } from "react";
 
 export interface StyleSheet {
-    [key: string]: CSSProperties;
-  }
+  [key: string]: CSSProperties;
+}
 
 export interface User {
-    id: string | undefined;
-    firstName: string | undefined;
-    lastName: string | undefined;
-    email: string | undefined;
-    avatar: string | undefined;
-    role: string | undefined;
+  id: string | undefined;
+  firstName: string | undefined;
+  lastName: string | undefined;
+  email: string | undefined;
+  avatar: string | undefined;
+  role: string | undefined;
 }
 
 export interface UserContext {
-    user: User | null;
-    setUser: React.Dispatch<React.SetStateAction<User | null>>;
-    isAuthenticated: Boolean;
-    setIsAuthenticated: React.Dispatch<React.SetStateAction<Boolean>>;
-    error: string | null;
-    setError: React.Dispatch<React.SetStateAction<string | null>>;
-    isLoading: Boolean;
-    setIsLoading: React.Dispatch<React.SetStateAction<Boolean>>;
-    handleLoginSubmit: (username: string, password: string, event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+  user: User | null;
+  setUser: React.Dispatch<React.SetStateAction<User | null>>;
+  isAuthenticated: Boolean;
+  setIsAuthenticated: React.Dispatch<React.SetStateAction<Boolean>>;
+  error: string | null;
+  setError: React.Dispatch<React.SetStateAction<string | null>>;
+  isLoading: Boolean;
+  setIsLoading: React.Dispatch<React.SetStateAction<Boolean>>;
+  handleLoginSubmit: (
+    username: string,
+    password: string,
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => void;
+}
+
+// is "| null" necessary for registration? If so, why?
+export interface RegistrationFormData {
+  email: string;
+  firstName: string;
+  lastName: string;
+  phoneNumber: string; // should type be a number or a string?
+  password: string;
+  confirmPassword: string;
+}
+
+// Interface for modal
+// I would like for content to be a react element
+export interface ModalProps {
+  content: any;
+  handleCancel: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }

@@ -1,14 +1,19 @@
-'use client';
+"use client";
 
-import React, { useState, FC } from 'react';
-import { useUserContext } from '../../features/user/UserContextProvider';
-import { useRouter } from 'next/router';
-import { StyleSheet, UserContext } from '../../types';
+import React, { useState, FC, useRef } from "react";
+import { useUserContext } from "../../features/user/UserContextProvider";
+import { useRouter } from "next/router";
+import { StyleSheet, UserContext } from "../../types";
+
+// Modal additions
+import Modal from "../../components/modal";
+import RegistrationForm from "../../components/registration-form";
 
 const LoginPage: FC = () => {
-  const [username, setUsername] = useState<string>('');
-  const [password, setPassword] = useState('');
-  const [userNotification, setUserNotification] = useState<string>('');
+  const [username, setUsername] = useState<string>("");
+  const [password, setPassword] = useState("");
+  const [userNotification, setUserNotification] = useState<string>("");
+  const [isOpen, setIsOpen] = useState<boolean>(false); // Modal state
 
   const userContext: UserContext | null = useUserContext();
 
@@ -20,54 +25,81 @@ const LoginPage: FC = () => {
     setPassword(event.target.value);
   };
 
-  function handleSubmit(username: string, password: string, event: React.MouseEvent<HTMLButtonElement, MouseEvent>){
-    if (username === '' || password === '') {
-        setUserNotification('Please enter a username and password');
-        return;
+  function handleSubmit(
+    username: string,
+    password: string,
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) {
+    if (username === "" || password === "") {
+      setUserNotification("Please enter a username and password");
+      return;
     }
-        userContext?.handleLoginSubmit(username, password, event);
+    userContext?.handleLoginSubmit(username, password, event);
+  }
+
+  const modal = useRef<HTMLDialogElement | null>(null); // referencing dialog element
+
+  const handleModal = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    modal.current?.showModal();
+    isOpen ? setIsOpen(false) : setIsOpen(true);
   };
-  
+
+  const handleCancel = (e: React.MouseEvent<HTMLButtonElement>) => {
+    modal.current?.close();
+    isOpen ? setIsOpen(false) : setIsOpen(true);
+  };
+
   return (
     <div className="login-form">
       <div className="content">
         <div className="text">Ticketmate Login</div>
         <form action="#">
           <div className="field">
+            {username.length > 0 && <label>Email or Phone</label>}
             <input
               type="text"
               value={username}
               onChange={handleUsernameChange}
+              placeholder="Email or Phone"
               required
             />
             <span className="fas fa-user"></span>
-            <label>Email or Phone</label>
           </div>
           <div className="field">
+            {password.length > 0 && <label>Password</label>}
             <input
               type="password"
               value={password}
               onChange={handlePasswordChange}
+              placeholder="Password"
               required
             />
             <span className="fas fa-lock"></span>
-            <label>Password</label>
           </div>
           <div className="forgot-pass">
             <a href="#">Forgot Password?</a>
           </div>
-          <button onClick={(e) => handleSubmit(username, password, e)}>Sign in</button>
-          <div className="sign-up">
-            Don't have an account?
-            <a href="#"> Sign up now</a>
-          </div>
-        </form>
+          <button onClick={(e) => handleSubmit(username, password, e)}>
+            Sign in
+          </button>
+        </form>{" "}
+        {/* A form can't be embedded inside another form so I moved the close form tag so it did not include the 'Don't have an account' portion */}
+        <div className="sign-up">
+          Don't have an account? {/* <a href="#"> Sign up now</a> */}
+          <button id="signup-btn" onClick={handleModal}>
+            Sign up now
+          </button>
+          {isOpen ? (
+            <Modal content={<RegistrationForm />} handleCancel={handleCancel} />
+          ) : null}
+        </div>
         {userNotification ? (
-            <div style={styles.errorBox}>
-          <h2 style={styles.errorText}>{userNotification}</h2>
+          <div style={styles.errorBox}>
+            <h2 style={styles.errorText}>{userNotification}</h2>
           </div>
         ) : (
-            ''
+          ""
         )}
       </div>
       <div>
@@ -76,13 +108,13 @@ const LoginPage: FC = () => {
         {userContext ? (
           userContext.error ? (
             <div style={styles.errorBox}>
-            <h2 style={styles.errorText}>{userContext.error}</h2>
+              <h2 style={styles.errorText}>{userContext.error}</h2>
             </div>
           ) : (
-            ''
+            ""
           )
         ) : (
-          ''
+          ""
         )}
       </div>
     </div>
@@ -90,16 +122,16 @@ const LoginPage: FC = () => {
 };
 
 const styles: StyleSheet = {
-    errorText: {
-        color: 'red',
-        fontSize: '0.8rem'
-    },
-    errorBox: {
-        border: '1px solid red',
-        padding: '10px 2px',
-        borderRadius: '5px',
-        background: 'rgba(245, 245, 245)',
-    }
+  errorText: {
+    color: "red",
+    fontSize: "0.8rem",
+  },
+  errorBox: {
+    border: "1px solid red",
+    padding: "10px 2px",
+    borderRadius: "5px",
+    background: "rgba(245, 245, 245)",
+  },
 };
 
 export default LoginPage;
