@@ -4,7 +4,10 @@ import { ModalProps } from "../types";
 const Modal: FC<ModalProps> = ({ content, handleCancel }) => {
   return (
     <dialog>
-      <div className="flex justify-center items-center relative">
+      <div
+        id="modal-content"
+        className="w-50 flex justify-center items-center relative"
+      >
         <span
           role="button"
           onClick={handleCancel}

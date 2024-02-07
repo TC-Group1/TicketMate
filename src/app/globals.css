@@ -179,9 +179,57 @@ dialog {
 
 /* Start of Registration Div Styling */
 
-@media screen and (max-width: 300px) {
+@media screen and (max-width: 500px) {
+  #TicketMate-registration-form {
+    font-size: 35px;
+    line-height: 2.5rem;
+  }
   #registration-form {
-    max-width: 250px;
+    width: 300px;
+  }
+
+  dialog {
+    backdrop-filter: blur(50px);
+    min-height: 100vh;
+    position: fixed; /* Modal not covering screen when scrolled down*/
+    overflow: scroll; /* Needs adjusting */
+  }
+}
+
+@media screen and (min-width: 500px) {
+  #registration-form {
+    width: 425px;
+    max-height: 625px;
+  }
+  .field {
+    height: 40px; /* Changed from 50px to 40px because too many inputs */
+    width: 100%;
+    display: flex;
+    position: relative;
+  }
+
+  .field:nth-child(2) {
+    /* get refresher on nth-child*/
+    margin-top: 20px;
+  }
+  .field input {
+    height: 100%;
+    width: 100%;
+    padding-left: 45px;
+    outline: none;
+    border: none;
+    font-size: 18px;
+    background: var(--login-background);
+    color: #595959;
+    border-radius: 25px;
+    box-shadow: inset 2px 2px 5px #babecc, inset -5px -5px 10px #ffffff73;
+  }
+
+  button {
+    width: 70%;
+    height: 40px;
+    margin: 5px 0;
+    line-height: 1rem;
   }
 }
 

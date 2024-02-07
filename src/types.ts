@@ -36,7 +36,6 @@ export interface RegistrationFormData {
   lastName: string;
   phoneNumber: string; // should type be a number or a string?
   password: string;
-  confirmPassword: string;
 }
 
 // Interface for modal
@@ -47,11 +46,11 @@ export interface ModalProps {
 }
 
 export interface Ticket {
-    feature: string | undefined;
-    assignees: Array<string> | undefined;
-    priority: string | undefined;
-    dateCreated: string | undefined;
-    status: string | undefined;
-    documentation: string | undefined;
-    files: Array<string> | undefined;
+  feature: string | undefined;
+  assignees: Array<string> | undefined;
+  priority: string | undefined;
+  dateCreated: string | undefined;
+  status: string | undefined;
+  documentation: string | undefined;
+  files: Array<string> | undefined;
 }

@@ -1,4 +1,4 @@
-import React, { useState, FC } from "react";
+import React, { useState, useRef, FC } from "react";
 import { RegistrationFormData } from "../types";
 import { useMutation } from "@tanstack/react-query";
 
@@ -9,30 +9,38 @@ const marginTop = {
 
 const RegistrationForm: FC = () => {
   const [email, setEmail] = useState<string>("");
+  const [disabled, setDisabled] = useState<boolean>(true);
+  const [emailError, setEmailError] = useState<boolean>(false);
+  const [passwordError, setPasswordError] = useState<boolean>(false);
+  const [confirmPassword, setConfirmPassword] = useState<string>("");
+  const [confirmPasswordError, setConfirmPasswordError] =
+    useState<boolean>(false);
+
   const [formData, setFormData] = useState<RegistrationFormData>({
     email: "",
     firstName: "",
     lastName: "",
     phoneNumber: "",
     password: "",
-    confirmPassword: "",
   });
 
   const handleInputFieldChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    // Need form validation for errors
     e.preventDefault();
-
+    if (passwordError) setPasswordError(false);
+    if (confirmPasswordError) setConfirmPasswordError(false);
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleFormSubmission = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log("Register Button Clicked");
-    if (formData.password !== formData.confirmPassword) {
-      console.log("Password does not match.");
+    // if password doesnt meet requirements setPasswordError(true)
+    if (formData.password !== confirmPassword) {
+      setConfirmPasswordError(true);
     } else {
-      console.log("Navigation to Dashboard");
-      console.log("Form successfully submitted with data: ", formData);
+      // if (emailRegex.test(formData.email) ?
+      // navigate("/dashboard")
+      // : setEmailError(true)
     }
   };
 
@@ -40,26 +48,28 @@ const RegistrationForm: FC = () => {
   const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
 
   // Check database to see if email is already in use before user submits.
-  const handleEmailValidation = (e: React.ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault();
+  // const handleEmailValidation = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   e.preventDefault();
 
-    const email: string = e.target.value;
-    setEmail(email);
-    // checks validity after 6 seconds
+  //   const email: string = e.target.value;
+  //   setEmail(email);
+  //   // checks validity after 6 seconds
 
-    if (!emailRegex.test(email)) {
-      console.error("Invalid email address");
-      // set error on input
-    } else {
-      // Complete axios request
-      console.log("Completing axios request");
-      // if successful
-      setFormData({ ...formData, email: email });
-      // if email in use
-      //Display error message
-      console.log("Email is already in use... Already have an account? Login");
-    }
-  };
+  //   if (!emailRegex.test(email)) {
+  //     console.error("Invalid email address");
+  //     // set error on input
+  //   } else {
+  //     // Complete fetch request
+  //     console.log("Completing fetch request");
+  //     // if successful
+  //     setFormData({ ...formData, email: email });
+  //     // if email in use
+  //     // setErrorMessage("Email is already in use.")
+
+  //     //Display error message
+  //     console.log("Email is already in use... Already have an account? Login");
+  //   }
+  // };
 
   return (
     <div
@@ -101,7 +111,8 @@ const RegistrationForm: FC = () => {
             placeholder="Email"
             autoFocus
             value={email}
-            onChange={handleEmailValidation}
+            // onChange={handleEmailValidation}
+            style={emailError ? { border: "1px solid red" } : {}}
             required
           />
         </div>
@@ -189,7 +200,7 @@ const RegistrationForm: FC = () => {
         </div>
 
         <div className="field" style={marginTop}>
-          {formData.confirmPassword.length > 0 && (
+          {confirmPassword.length > 0 && (
             <label
               className="label"
               htmlFor="confirm-password"
@@ -206,14 +217,16 @@ const RegistrationForm: FC = () => {
             type="password"
             placeholder="Confirm Password"
             minLength={8}
-            value={formData.confirmPassword}
+            value={confirmPassword}
             onChange={handleInputFieldChange}
             required
           />
         </div>
 
         <br />
-        <button id="registration-button">Register</button>
+        <button disabled={disabled} id="registration-button">
+          Register
+        </button>
       </form>
       <div
         className="registration-text sign-up"
