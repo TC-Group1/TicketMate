@@ -177,32 +177,49 @@ dialog {
   background: rgba(255, 255, 255, 0.7);
 }
 
-/* Start of Registration Div Styling */
-
-@media screen and (max-width: 500px) {
-  #TicketMate-registration-form {
-    font-size: 35px;
-    line-height: 2.5rem;
-  }
-  #registration-form {
-    width: 300px;
-  }
-
-  dialog {
-    backdrop-filter: blur(50px);
-    min-height: 100vh;
-    position: fixed; /* Modal not covering screen when scrolled down*/
-    overflow: scroll; /* Needs adjusting */
-  }
+/* Tool Tip */
+.tooltip {
+  position: relative;
+  display: inline-block;
 }
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 150px;
+  background-color: black;
+  color: #fff;
+  text-align: left;
+  padding: 5px 5px;
+  border-radius: 6px;
+  position: absolute;
+  z-index: 1;
+  top: -5px;
+  left: 100%;
+}
+
+.tooltip .tooltiptext::after {
+  content: "";
+  position: absolute;
+  top: 10%;
+  right: 100%;
+  margin-top: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent black transparent transparent;
+}
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+
+/* Start of Registration Div Styling */
 
 @media screen and (min-width: 500px) {
   #registration-form {
-    width: 425px;
-    max-height: 625px;
+    width: 475px;
+    /* max-height: 575px; */
   }
   .field {
-    height: 40px; /* Changed from 50px to 40px because too many inputs */
+    height: 40px;
     width: 100%;
     display: flex;
     position: relative;
@@ -230,6 +247,23 @@ dialog {
     height: 40px;
     margin: 5px 0;
     line-height: 1rem;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  #TicketMate-registration-form {
+    font-size: 35px;
+    line-height: 2.5rem;
+  }
+  #registration-form {
+    width: 300px;
+  }
+
+  dialog {
+    backdrop-filter: blur(50px);
+    min-height: 100vh;
+    position: fixed; /* Modal not covering screen when scrolled down*/
+    overflow: scroll; /* Needs adjusting */
   }
 }
 

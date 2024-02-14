@@ -1,6 +1,6 @@
 import React, { useState, useRef, FC } from "react";
 import { RegistrationFormData } from "../types";
-import { useMutation } from "@tanstack/react-query";
+import Registration from "@/hooks/auth/register";
 
 // margin top input field
 const marginTop = {
@@ -8,14 +8,6 @@ const marginTop = {
 };
 
 const RegistrationForm: FC = () => {
-  const [email, setEmail] = useState<string>("");
-  const [disabled, setDisabled] = useState<boolean>(true);
-  const [emailError, setEmailError] = useState<boolean>(false);
-  const [passwordError, setPasswordError] = useState<boolean>(false);
-  const [confirmPassword, setConfirmPassword] = useState<string>("");
-  const [confirmPasswordError, setConfirmPasswordError] =
-    useState<boolean>(false);
-
   const [formData, setFormData] = useState<RegistrationFormData>({
     email: "",
     firstName: "",
@@ -23,53 +15,88 @@ const RegistrationForm: FC = () => {
     phoneNumber: "",
     password: "",
   });
+  const [confirmPassword, setConfirmPassword] = useState<string>("");
+
+  // Error handling state
+  const [emailError, setEmailError] = useState<boolean>(false);
+  const emailErrorRef = useRef<boolean>(false);
+  const [showPasswordRequirements, setShowPasswordRequirements] =
+    useState<boolean>(false);
+  const [passwordError, setPasswordError] = useState<boolean>(false);
+  const passwordErrorRef = useRef<boolean>(false);
+  const [confirmPasswordError, setConfirmPasswordError] =
+    useState<boolean>(false);
+  const confirmPasswordErrorRef = useRef<boolean>(false);
+
+  const { register } = Registration();
 
   const handleInputFieldChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
-    if (passwordError) setPasswordError(false);
-    if (confirmPasswordError) setConfirmPasswordError(false);
+
+    if (e.target.name === "email") {
+      setEmailError(false);
+      emailErrorRef.current = false;
+    }
+    if (e.target.name === "password") {
+      setPasswordError(false);
+      setShowPasswordRequirements(false);
+      passwordErrorRef.current = false;
+    }
+    if (e.target.name === "confirmPassword") {
+      setConfirmPasswordError(false);
+      confirmPasswordErrorRef.current = false;
+      setConfirmPassword(e.target.value);
+    }
+
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleFormSubmission = (e: React.FormEvent<HTMLFormElement>) => {
+  // regex for email and password validation
+  const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
+  const passwordRegex =
+    /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
+
+  const handleFormSubmission = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("Register Button Clicked");
-    // if password doesnt meet requirements setPasswordError(true)
-    if (formData.password !== confirmPassword) {
+
+    // Input field checks
+    if (!emailRegex.test(formData.email)) {
+      setEmailError(true);
+      emailErrorRef.current = true;
+    }
+
+    if (formData.password !== confirmPassword) setConfirmPasswordError(true);
+    if (!passwordRegex.test(formData.password)) {
+      // Will implement password REGEX later
+      setShowPasswordRequirements(true);
+      setPasswordError(true);
       setConfirmPasswordError(true);
-    } else {
-      // if (emailRegex.test(formData.email) ?
-      // navigate("/dashboard")
-      // : setEmailError(true)
+    }
+
+    // Error or query handling
+    if (
+      emailErrorRef.current === true ||
+      passwordError === true ||
+      confirmPasswordError === true
+    ) {
+      console.error("Invalid input fields");
+      throw new Error("Invalid input fields");
+    } else if (
+      emailError == false &&
+      passwordError == false &&
+      confirmPasswordError == false
+    ) {
+      console.log("Form Data: ", formData);
+
+      try {
+        const user = await register.mutateAsync(formData);
+        console.log("User Created", user);
+        // Create route that sends user to login
+      } catch (error) {
+        console.error("Error registering new user: ", error);
+      }
     }
   };
-
-  // regex for email validation
-  const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
-
-  // Check database to see if email is already in use before user submits.
-  // const handleEmailValidation = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   e.preventDefault();
-
-  //   const email: string = e.target.value;
-  //   setEmail(email);
-  //   // checks validity after 6 seconds
-
-  //   if (!emailRegex.test(email)) {
-  //     console.error("Invalid email address");
-  //     // set error on input
-  //   } else {
-  //     // Complete fetch request
-  //     console.log("Completing fetch request");
-  //     // if successful
-  //     setFormData({ ...formData, email: email });
-  //     // if email in use
-  //     // setErrorMessage("Email is already in use.")
-
-  //     //Display error message
-  //     console.log("Email is already in use... Already have an account? Login");
-  //   }
-  // };
 
   return (
     <div
@@ -97,7 +124,7 @@ const RegistrationForm: FC = () => {
         aria-labelledby="TicketMate-registration-form"
       >
         <div className="field">
-          {email.length > 0 && (
+          {formData.email.length > 0 && (
             <label className="label" htmlFor="email" id="email-label">
               Email
             </label>
@@ -107,15 +134,29 @@ const RegistrationForm: FC = () => {
             className="registration-input"
             aria-labelledby="email-label"
             name="email"
-            type="email"
+            type="text" // Changed from type 'email' for custom error handling.
             placeholder="Email"
             autoFocus
-            value={email}
-            // onChange={handleEmailValidation}
-            style={emailError ? { border: "1px solid red" } : {}}
+            value={formData.email}
+            onChange={handleInputFieldChange}
+            style={emailError ? { border: "1.5px solid red" } : {}}
             required
           />
+          <br />
         </div>
+        {emailError ? (
+          <p
+            style={{
+              textAlign: "left",
+              paddingBottom: "15px",
+              paddingLeft: "40px",
+              fontSize: "13px",
+              color: "red",
+            }}
+          >
+            Email is invalid
+          </p>
+        ) : null}
 
         <div className="field">
           {formData.firstName.length > 0 && (
@@ -178,8 +219,18 @@ const RegistrationForm: FC = () => {
             onChange={handleInputFieldChange}
           />
         </div>
-
-        <div className="field" style={marginTop}>
+        {showPasswordRequirements ? (
+          <div style={{ padding: "10px 0 0", fontSize: "small" }}>
+            <ul>
+              <li>At least one uppercase letter</li>
+              <li>At least one lowercase letter</li>
+              <li>At least one digit</li>
+              <li>At least one special character among #?!@$%^&*-</li>
+              <li>A minimum length of 8 characters</li>
+            </ul>
+          </div>
+        ) : null}
+        <div className="field tooltip" style={marginTop}>
           {formData.password.length > 0 && (
             <label htmlFor="password" id="password-label">
               Password
@@ -195,11 +246,23 @@ const RegistrationForm: FC = () => {
             minLength={8}
             value={formData.password}
             onChange={handleInputFieldChange}
+            style={passwordError ? { border: "1px solid red" } : {}}
             required
           />
         </div>
+        <div
+          style={{
+            cursor: "pointer",
+            textAlign: "right",
+            fontSize: "small",
+            marginTop: "5px",
+          }}
+          onClick={() => setShowPasswordRequirements(!showPasswordRequirements)}
+        >
+          {showPasswordRequirements ? "hide requirements" : "show requirements"}
+        </div>
 
-        <div className="field" style={marginTop}>
+        <div className="field" style={{ marginTop: "10px" }}>
           {confirmPassword.length > 0 && (
             <label
               className="label"
@@ -219,14 +282,26 @@ const RegistrationForm: FC = () => {
             minLength={8}
             value={confirmPassword}
             onChange={handleInputFieldChange}
+            style={confirmPasswordError ? { border: "1.5px solid red" } : {}}
             required
           />
         </div>
 
+        {confirmPasswordError ? (
+          <p
+            style={{
+              textAlign: "left",
+              paddingBottom: "15px",
+              paddingLeft: "40px",
+              fontSize: "13px",
+              color: "red",
+            }}
+          >
+            Password and Confirm Password do not match
+          </p>
+        ) : null}
         <br />
-        <button disabled={disabled} id="registration-button">
-          Register
-        </button>
+        <button id="registration-button">Register</button>
       </form>
       <div
         className="registration-text sign-up"
@@ -241,5 +316,3 @@ const RegistrationForm: FC = () => {
 };
 
 export default RegistrationForm;
-
-// adding type="submit" to button removes CSS styling
