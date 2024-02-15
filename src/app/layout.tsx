@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css';
 import { UserContextProvider } from '../features/user/UserContextProvider';
-import HamburgerMenu from '@/components/HamburgerMenu/HamburgerMenu';
+import Menu from '@/components/Menu/Menu';
 import { ReactQueryClientProvider } from '@/features/user/query/QueryClientProvider';
 
 const inter = Inter({ subsets: ['latin'] })
@@ -22,7 +22,7 @@ export default function RootLayout({
       <UserContextProvider>
         <html lang="en">
           <body className={inter.className}>
-          <HamburgerMenu />
+          <Menu />
             <div>
               {children}
             </div> 

@@ -58,7 +58,7 @@ const LoginPage: FC = () => {
           </div>
           <button onClick={(e) => handleSubmit(username, password, e)}>Sign in</button>
           <div className="sign-up">
-            Don't have an account?
+            Don&apos;t have an account?
             <a href="#"> Sign up now</a>
           </div>
         </form>
