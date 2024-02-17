@@ -76,15 +76,15 @@ const RegistrationForm: FC = () => {
     // Error or query handling
     if (
       emailErrorRef.current === true ||
-      passwordError === true ||
-      confirmPasswordError === true
+      passwordErrorRef.current === true ||
+      confirmPasswordErrorRef.current === true
     ) {
       console.error("Invalid input fields");
       throw new Error("Invalid input fields");
     } else if (
-      emailError == false &&
-      passwordError == false &&
-      confirmPasswordError == false
+      emailErrorRef.current == false &&
+      passwordErrorRef.current == false &&
+      confirmPasswordErrorRef.current == false
     ) {
       console.log("Form Data: ", formData);
 
@@ -220,13 +220,15 @@ const RegistrationForm: FC = () => {
           />
         </div>
         {showPasswordRequirements ? (
-          <div style={{ padding: "10px 0 0", fontSize: "small" }}>
+          <div
+            style={{ padding: "10px 0 0", fontSize: "small", color: "gray" }}
+          >
             <ul>
-              <li>At least one uppercase letter</li>
-              <li>At least one lowercase letter</li>
-              <li>At least one digit</li>
-              <li>At least one special character among #?!@$%^&*-</li>
-              <li>A minimum length of 8 characters</li>
+              <li>*At least one uppercase letter</li>
+              <li>*At least one lowercase letter</li>
+              <li>*At least one digit</li>
+              <li>*At least one special character among #?!@$%^&*-</li>
+              <li>*A minimum length of 8 characters</li>
             </ul>
           </div>
         ) : null}
@@ -259,7 +261,7 @@ const RegistrationForm: FC = () => {
           }}
           onClick={() => setShowPasswordRequirements(!showPasswordRequirements)}
         >
-          {showPasswordRequirements ? "hide requirements" : "show requirements"}
+          {showPasswordRequirements ? "Hide requirements" : "Show requirements"}
         </div>
 
         <div className="field" style={{ marginTop: "10px" }}>
