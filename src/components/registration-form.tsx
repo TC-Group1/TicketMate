@@ -17,7 +17,8 @@ const RegistrationForm: FC = () => {
   });
   const [confirmPassword, setConfirmPassword] = useState<string>("");
 
-  // Error handling state
+  // ERROR HANDLING STATE
+
   const [emailError, setEmailError] = useState<boolean>(false);
   const emailErrorRef = useRef<boolean>(false);
   const [showPasswordRequirements, setShowPasswordRequirements] =
@@ -26,7 +27,10 @@ const RegistrationForm: FC = () => {
   const passwordErrorRef = useRef<boolean>(false);
   const [confirmPasswordError, setConfirmPasswordError] =
     useState<boolean>(false);
+  const [passwordReqError, setPasswordReqError] = useState<boolean>(false);
   const confirmPasswordErrorRef = useRef<boolean>(false);
+  const [phoneNumberError, setPhoneNumberError] = useState<boolean>(false);
+  const phoneNumberErrorRef = useRef<boolean>(false);
 
   const { register } = Registration();
 
@@ -36,6 +40,10 @@ const RegistrationForm: FC = () => {
     if (e.target.name === "email") {
       setEmailError(false);
       emailErrorRef.current = false;
+    }
+    if (e.target.name === "phoneNumber") {
+      setPhoneNumberError(false);
+      phoneNumberErrorRef.current = false;
     }
     if (e.target.name === "password") {
       setPasswordError(false);
@@ -51,40 +59,61 @@ const RegistrationForm: FC = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // regex for email and password validation
+  // REGEX FOR EMAIL, PASSWORD, PHONE NUMBERS
   const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
   const passwordRegex =
     /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
+  const phoneNumberRegex = /^[2-9]{1}[0-9]{2}[2-9]{1}[0-9]{2}[0-9]{4}$/;
+
+  // INPUT FIELD ERROR HANDLING FUNCTIONS
+
+  const emailErrorHandling = () => {
+    setEmailError(true);
+    emailErrorRef.current = true;
+  };
+
+  const phoneNumberErrorHandling = (number: string) => {
+    const stripSpecialChars = number.replace(/[^+\d]+/g, ""); // Gives user the ability to input their phone number in whatever format
+
+    if (!phoneNumberRegex.test(stripSpecialChars)) {
+      setPhoneNumberError(true);
+      phoneNumberErrorRef.current = true;
+    }
+  };
+
+  const passwordErrorHandling = () => {
+    setShowPasswordRequirements(true);
+    setPasswordError(true);
+    setConfirmPasswordError(true);
+  };
+
+  // FORM SUBMISSION FUNCTION
 
   const handleFormSubmission = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     // Input field checks
-    if (!emailRegex.test(formData.email)) {
-      setEmailError(true);
-      emailErrorRef.current = true;
-    }
-
-    if (formData.password !== confirmPassword) setConfirmPasswordError(true);
-    if (!passwordRegex.test(formData.password)) {
-      // Will implement password REGEX later
-      setShowPasswordRequirements(true);
-      setPasswordError(true);
+    if (!emailRegex.test(formData.email)) emailErrorHandling();
+    else if (formData.phoneNumber !== null)
+      phoneNumberErrorHandling(formData.phoneNumber);
+    else if (formData.password !== confirmPassword)
       setConfirmPasswordError(true);
-    }
+    else if (!passwordRegex.test(formData.password)) passwordErrorHandling();
 
     // Error or query handling
     if (
       emailErrorRef.current === true ||
       passwordErrorRef.current === true ||
-      confirmPasswordErrorRef.current === true
+      confirmPasswordErrorRef.current === true ||
+      phoneNumberErrorRef.current === true
     ) {
       console.error("Invalid input fields");
       throw new Error("Invalid input fields");
     } else if (
-      emailErrorRef.current == false &&
-      passwordErrorRef.current == false &&
-      confirmPasswordErrorRef.current == false
+      emailErrorRef.current === false &&
+      passwordErrorRef.current === false &&
+      confirmPasswordErrorRef.current === false &&
+      phoneNumberErrorRef.current === false
     ) {
       console.log("Form Data: ", formData);
 
@@ -212,11 +241,12 @@ const RegistrationForm: FC = () => {
             className="registration-input"
             aria-labelledby="phone-number-label"
             name="phoneNumber"
-            type="number"
+            type="text"
             placeholder="Phone Number"
-            maxLength={15}
+            maxLength={14}
             value={formData.phoneNumber}
             onChange={handleInputFieldChange}
+            style={phoneNumberError ? { border: "1px solid red" } : {}}
           />
         </div>
         {showPasswordRequirements ? (
@@ -300,6 +330,19 @@ const RegistrationForm: FC = () => {
             }}
           >
             Password and Confirm Password do not match
+          </p>
+        ) : null}
+        {passwordReqError ? (
+          <p
+            style={{
+              textAlign: "left",
+              paddingBottom: "15px",
+              paddingLeft: "40px",
+              fontSize: "13px",
+              color: "red",
+            }}
+          >
+            Password does not meet requirements.
           </p>
         ) : null}
         <br />
