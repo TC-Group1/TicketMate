@@ -5,7 +5,7 @@ import TicketBoardTeam from '@/components/ticketboard/TicketBoardTeam';
 import data from '@/mockData.json';
 import styles from './page.module.css';
 
-const TicketBoardPage: FC = () => {
+const Dashboard: FC = () => {
 
 const mockData = data;
 
@@ -72,5 +72,5 @@ const mockData = data;
     )
 }
 
-export default TicketBoardPage;
+export default Dashboard;
 

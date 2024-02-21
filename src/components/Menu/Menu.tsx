@@ -11,11 +11,11 @@ import { UserContext } from '@/types';
 
 
 
-const HamburgerMenu: FC = () => {
+const Menu: FC = () => {
 
   //const userContext: UserContext | null = useUserContext();
 
- // let name = userContext?.user?.firstName ?? 'User';
+ // let name = userContext?.user?.firstName ?? 'Guest';
   
   return (
     <div className={styles.header}>
@@ -34,4 +34,4 @@ const HamburgerMenu: FC = () => {
   );
 };
 
-export default HamburgerMenu;
+export default Menu;
