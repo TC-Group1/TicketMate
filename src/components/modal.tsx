@@ -1,7 +1,12 @@
-import React, { FC } from "react";
-import { ModalProps } from "../types";
+"use client";
 
-const Modal: FC<ModalProps> = ({ content, handleCancel }) => {
+import React, { FC } from "react";
+import { ModalContext } from "../types";
+import { useModal } from "@/features/modal/ModalContextProvider";
+
+const Modal: FC<ModalContext> = () => {
+  const { children, closeModal } = useModal();
+
   return (
     <dialog>
       <div
@@ -10,7 +15,7 @@ const Modal: FC<ModalProps> = ({ content, handleCancel }) => {
       >
         <span
           role="button"
-          onClick={handleCancel}
+          onClick={closeModal}
           className="text-black bg-inherit w-12 h-12  absolute top-3 right-0 m-2"
         >
           <p
@@ -20,7 +25,7 @@ const Modal: FC<ModalProps> = ({ content, handleCancel }) => {
             x
           </p>
         </span>
-        {content}
+        {children}
       </div>
     </dialog>
   );

@@ -1,6 +1,7 @@
 import React, { useState, useRef, FC } from "react";
 import { RegistrationFormData } from "../types";
 import Registration from "@/hooks/auth/register";
+import { useRouter } from "next/navigation";
 
 // margin top input field
 const marginTop = {
@@ -17,18 +18,18 @@ const RegistrationForm: FC = () => {
   });
   const [confirmPassword, setConfirmPassword] = useState<string>("");
 
-  // ERROR HANDLING STATE
+  // State and State References for error handling
 
   const [emailError, setEmailError] = useState<boolean>(false);
   const emailErrorRef = useRef<boolean>(false);
-  const [showPasswordRequirements, setShowPasswordRequirements] =
-    useState<boolean>(false);
   const [passwordError, setPasswordError] = useState<boolean>(false);
   const passwordErrorRef = useRef<boolean>(false);
   const [confirmPasswordError, setConfirmPasswordError] =
     useState<boolean>(false);
-  const [passwordReqError, setPasswordReqError] = useState<boolean>(false);
   const confirmPasswordErrorRef = useRef<boolean>(false);
+  const [showPasswordRequirements, setShowPasswordRequirements] =
+    useState<boolean>(false);
+  const [passwordReqError, setPasswordReqError] = useState<boolean>(false);
   const [phoneNumberError, setPhoneNumberError] = useState<boolean>(false);
   const phoneNumberErrorRef = useRef<boolean>(false);
 
@@ -115,12 +116,8 @@ const RegistrationForm: FC = () => {
       confirmPasswordErrorRef.current === false &&
       phoneNumberErrorRef.current === false
     ) {
-      console.log("Form Data: ", formData);
-
       try {
-        const user = await register.mutateAsync(formData);
-        console.log("User Created", user);
-        // Create route that sends user to login
+        await register.mutateAsync(formData); // Does this value need to be returned?
       } catch (error) {
         console.error("Error registering new user: ", error);
       }

@@ -1,4 +1,4 @@
-import { CSSProperties, useRef } from "react";
+import { CSSProperties, FC, SetStateAction, useRef } from "react";
 
 export interface StyleSheet {
   [key: string]: CSSProperties;
@@ -40,9 +40,13 @@ export interface RegistrationFormData {
 
 // Interface for modal
 // I would like for content to be a react element
-export interface ModalProps {
-  content: any;
-  handleCancel: (e: React.MouseEvent<HTMLButtonElement>) => void;
+// When do I use type vs interface
+export interface ModalContext {
+  children?: any | null;
+  openModal?: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  closeModal?: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  isOpen?: boolean;
+  setIsOpen?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export interface Ticket {

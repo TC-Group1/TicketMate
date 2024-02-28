@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, FC, useRef } from "react";
+import React, { useState, FC, useRef, useContext } from "react";
 import { useUserContext } from "../../features/user/UserContextProvider";
 import { useRouter } from "next/router";
 import { StyleSheet, UserContext } from "../../types";
@@ -8,14 +8,17 @@ import { StyleSheet, UserContext } from "../../types";
 // Modal additions
 import Modal from "../../components/modal";
 import RegistrationForm from "../../components/registration-form";
+import { useModal } from "@/features/modal/ModalContextProvider";
 
 const LoginPage: FC = () => {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState("");
   const [userNotification, setUserNotification] = useState<string>("");
-  const [isOpen, setIsOpen] = useState<boolean>(false); // Modal state
 
   const userContext: UserContext | null = useUserContext();
+
+  const modal = useModal(); // From Modal Context
+  console.log("Modal in Login", modal);
 
   const handleUsernameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setUsername(event.target.value);
@@ -37,18 +40,20 @@ const LoginPage: FC = () => {
     userContext?.handleLoginSubmit(username, password, event);
   }
 
-  const modal = useRef<HTMLDialogElement | null>(null); // referencing dialog element
+  // // May not be necessary with useModal
 
-  const handleModal = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    modal.current?.showModal();
-    isOpen ? setIsOpen(false) : setIsOpen(true);
-  };
+  // const modal = useRef<HTMLDialogElement | null>(null); // referencing dialog element
 
-  const handleCancel = (e: React.MouseEvent<HTMLButtonElement>) => {
-    modal.current?.close();
-    isOpen ? setIsOpen(false) : setIsOpen(true);
-  };
+  // const handleModal = (e: React.MouseEvent<HTMLButtonElement>) => {
+  //   e.preventDefault();
+  //   modal.current?.showModal();
+  //   isOpen ? setIsOpen(false) : setIsOpen(true);
+  // };
+
+  // const handleCancel = (e: React.MouseEvent<HTMLButtonElement>) => {
+  //   modal.current?.close();
+  //   isOpen ? setIsOpen(false) : setIsOpen(true);
+  // };
 
   return (
     <div className="login-form">
@@ -87,12 +92,10 @@ const LoginPage: FC = () => {
         {/* A form can't be embedded inside another form so I moved the close form tag so it did not include the 'Don't have an account' portion */}
         <div className="sign-up">
           Don't have an account? {/* <a href="#"> Sign up now</a> */}
-          <button id="signup-btn" onClick={handleModal}>
+          <button id="signup-btn" onClick={modal.openModal}>
             Sign up now
           </button>
-          {isOpen ? (
-            <Modal content={<RegistrationForm />} handleCancel={handleCancel} />
-          ) : null}
+          {modal.isOpen && <Modal children={<RegistrationForm />} />}
         </div>
         {userNotification ? (
           <div style={styles.errorBox}>
