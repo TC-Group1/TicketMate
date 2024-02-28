@@ -4,8 +4,11 @@ import React, { FC } from "react";
 import { ModalContext } from "../types";
 import { useModal } from "@/features/modal/ModalContextProvider";
 
-const Modal: FC<ModalContext> = () => {
-  const { children, closeModal } = useModal();
+const Modal: FC<ModalContext> = ({ form }) => {
+  //changed this to take in the props that we're passing to this component instead of trying to destructure a complete different
+  //'children' and render that, which actually was not the registration
+  // try to avoid unnecessarily using a prop called children and instead use a more descriptive name with semantic meaning
+  const { closeModal } = useModal();
 
   return (
     <dialog>
@@ -25,7 +28,7 @@ const Modal: FC<ModalContext> = () => {
             x
           </p>
         </span>
-        {children}
+        {form}
       </div>
     </dialog>
   );

@@ -17,12 +17,13 @@ export const ModalContextProvider = ({ children }: any) => {
     return;
   };
 
+ /*children, this property should not be given to context, you only want the children props to be used inside of the provider */
+
   const modalProps = {
     isOpen,
     setIsOpen,
     openModal,
     closeModal,
-    children,
   };
 
   return (
