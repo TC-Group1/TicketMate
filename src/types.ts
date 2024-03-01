@@ -43,10 +43,10 @@ export interface RegistrationFormData {
 // When do I use type vs interface
 export interface ModalContext {
   children?: any | null;
+  isOpen?: boolean;
+  openModalRef?: React.MutableRefObject<boolean>;
   openModal?: (e: React.MouseEvent<HTMLButtonElement>) => void;
   closeModal?: (e: React.MouseEvent<HTMLButtonElement>) => void;
-  isOpen?: boolean;
-  setIsOpen?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export interface Ticket {

@@ -95,7 +95,7 @@ const LoginPage: FC = () => {
           <button id="signup-btn" onClick={modal.openModal}>
             Sign up now
           </button>
-          {modal.isOpen && <Modal children={<RegistrationForm />} />}
+          {modal.openModalRef && <Modal children={<RegistrationForm />} />}
         </div>
         {userNotification ? (
           <div style={styles.errorBox}>

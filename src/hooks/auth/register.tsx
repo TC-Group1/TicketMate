@@ -12,7 +12,7 @@ const Registration = () => {
   const userAPIEndpoint: string | undefined =
     config.NEXT_API_REGISTRATION_ENDPOINT;
 
-  const { isOpen, setIsOpen } = useModal();
+  // const { isOpen, currentModalRef } = useModal();
 
   const router = useRouter();
 
