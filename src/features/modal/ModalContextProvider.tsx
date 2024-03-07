@@ -15,6 +15,7 @@ export const ModalContextProvider = ({ children }: any) => {
     setIsOpen(true);
     return;
   };
+
   const closeModal = () => {
     openModalRef.current = false;
     setIsOpen(false);
@@ -23,10 +24,10 @@ export const ModalContextProvider = ({ children }: any) => {
 
   const modalProps = {
     isOpen,
+    setIsOpen,
     openModalRef,
     openModal,
     closeModal,
-    children,
   };
 
   return (
@@ -36,7 +37,7 @@ export const ModalContextProvider = ({ children }: any) => {
 export function useModal() {
   const context = useContext(ModalContext);
   if (context === null) {
-    throw new Error("Modal Error");
+    throw new Error("Error using modal");
   }
   return context;
 }

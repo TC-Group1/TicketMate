@@ -3,8 +3,6 @@
 import config from "@/config";
 import { RegistrationFormData } from "@/types";
 import { useMutation } from "@tanstack/react-query";
-import { useRouter } from "next/navigation";
-import { SetStateAction, useContext } from "react";
 import { useModal } from "@/features/modal/ModalContextProvider";
 
 const Registration = () => {
@@ -12,15 +10,13 @@ const Registration = () => {
   const userAPIEndpoint: string | undefined =
     config.NEXT_API_REGISTRATION_ENDPOINT;
 
-  // const { isOpen, currentModalRef } = useModal();
-
-  const router = useRouter();
+  const { isOpen } = useModal();
 
   const register = useMutation({
     mutationFn: async (requestBody: RegistrationFormData) => {
       if (requestBody !== null) {
-        console.log("Request in mutate function: ", requestBody);
         const response = await fetch(`${baseURL}${userAPIEndpoint}`, {
+          // If endpoint isn't working, double check in env file
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -33,7 +29,7 @@ const Registration = () => {
       } else console.log("No request body");
     },
     onSuccess: () => {
-      // setIsOpen(false) // Close Modal On Success
+      !isOpen; // Close modal upon successful user creation
       console.log("Success User Creation");
     },
     onError: () => {

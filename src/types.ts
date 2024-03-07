@@ -42,11 +42,11 @@ export interface RegistrationFormData {
 // I would like for content to be a react element
 // When do I use type vs interface
 export interface ModalContext {
-  children?: any | null;
+  form?: any | null;
   isOpen?: boolean;
-  openModalRef?: React.MutableRefObject<boolean>;
   openModal?: (e: React.MouseEvent<HTMLButtonElement>) => void;
   closeModal?: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  setIsOpen?: React.Dispatch<React.SetStateAction<boolean>> | undefined;
 }
 
 export interface Ticket {
