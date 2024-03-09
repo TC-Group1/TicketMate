@@ -72,15 +72,17 @@ const LoginPage: FC = () => {
           <button onClick={(e) => handleSubmit(username, password, e)}>
             Sign in
           </button>
-        </form>{" "}
-        {/* A form can't be embedded inside another form so I moved the close form tag so it did not include the 'Don't have an account' portion */}
+        </form>
+       
         <div className="sign-up">
-          Don't have an account? {/* <a href="#"> Sign up now</a> */}
+          Don't have an account? 
           <button id="signup-btn" onClick={openModal}>
             Sign up now
           </button>
           {isOpen && <Modal form={<RegistrationForm />} />}
         </div>
+
+         
         {userNotification ? (
           <div style={styles.errorBox}>
             <h2 style={styles.errorText}>{userNotification}</h2>
