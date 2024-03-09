@@ -1,11 +1,11 @@
-
-import { CSSProperties } from 'react';
+import { CSSProperties, FC, SetStateAction, useRef } from "react";
 
 export interface StyleSheet {
-    [key: string]: CSSProperties;
-  }
+  [key: string]: CSSProperties;
+}
 
 export interface User {
+
     id: string | undefined;
     firstName: string | undefined;
     lastName: string | undefined;
@@ -36,14 +36,38 @@ export interface Project {
 }
 
 export interface UserContext {
-    user: User | null;
-    setUser: React.Dispatch<React.SetStateAction<User | null>>;
-    isAuthenticated: Boolean;
-    setIsAuthenticated: React.Dispatch<React.SetStateAction<Boolean>>;
-    error: string | null;
-    setError: React.Dispatch<React.SetStateAction<string | null>>;
-    isLoading: Boolean;
-    setIsLoading: React.Dispatch<React.SetStateAction<Boolean>>;
-    handleLoginSubmit: (username: string, password: string, event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+  user: User | null;
+  setUser: React.Dispatch<React.SetStateAction<User | null>>;
+  isAuthenticated: Boolean;
+  setIsAuthenticated: React.Dispatch<React.SetStateAction<Boolean>>;
+  error: string | null;
+  setError: React.Dispatch<React.SetStateAction<string | null>>;
+  isLoading: Boolean;
+  setIsLoading: React.Dispatch<React.SetStateAction<Boolean>>;
+  handleLoginSubmit: (
+    username: string,
+    password: string,
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => void;
+}
+
+// is "| null" necessary for registration? If so, why?
+export interface RegistrationFormData {
+  email: string;
+  firstName: string;
+  lastName: string;
+  phoneNumber: string; // should type be a number or a string?
+  password: string;
+}
+
+// Interface for modal
+// I would like for content to be a react element
+// When do I use type vs interface
+export interface ModalContext {
+  form?: any | null;
+  isOpen?: boolean;
+  openModal?: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  closeModal?: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  setIsOpen?: React.Dispatch<React.SetStateAction<boolean>> | undefined;
 }
 
