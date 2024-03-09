@@ -90,20 +90,36 @@ const RegistrationForm: FC = () => {
     setConfirmPasswordError(true);
   };
 
+  // FORM VALIDATION FUNCTION
+
+  const validateFormInputs = (
+    email: string,
+    phoneNumber: string,
+    password: string,
+    confirmPassword: string
+  ) => {
+    // Input field checks
+
+    if (!emailRegex.test(email)) emailErrorHandling();
+    if (phoneNumber !== null) phoneNumberErrorHandling(phoneNumber);
+    if (password !== confirmPassword) {
+      setConfirmPasswordError(true);
+      confirmPasswordErrorRef.current === true;
+    }
+    if (!passwordRegex.test(password)) passwordErrorHandling();
+  };
+
   // FORM SUBMISSION FUNCTION
 
   const handleFormSubmission = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    // Input field checks
-    if (!emailRegex.test(formData.email)) emailErrorHandling();
-    if (formData.phoneNumber !== null)
-      phoneNumberErrorHandling(formData.phoneNumber);
-    if (formData.password !== confirmPassword) {
-      setConfirmPasswordError(true);
-      confirmPasswordErrorRef.current === true;
-    }
-    if (!passwordRegex.test(formData.password)) passwordErrorHandling();
+    validateFormInputs(
+      formData.email,
+      formData.phoneNumber,
+      formData.password,
+      confirmPassword
+    );
 
     // Error or query handling
     if (
@@ -121,7 +137,6 @@ const RegistrationForm: FC = () => {
       phoneNumberErrorRef.current === false
     ) {
       try {
-        console.log("Form Data:", formData);
         await register.mutateAsync(formData); // Does this value need to be returned?
       } catch (error) {
         console.error("Error registering new user: ", error);
