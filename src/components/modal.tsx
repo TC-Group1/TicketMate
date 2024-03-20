@@ -4,8 +4,8 @@ import React, { FC } from "react";
 import { ModalContext } from "../types";
 import { useModal } from "@/features/modal/ModalContextProvider";
 
-const Modal: FC<ModalContext> = () => {
-  const { children, closeModal } = useModal();
+const Modal: FC<ModalContext> = ({ form }) => {
+  const { closeModal } = useModal();
 
   return (
     <dialog>
@@ -25,7 +25,7 @@ const Modal: FC<ModalContext> = () => {
             x
           </p>
         </span>
-        {children}
+        {form}
       </div>
     </dialog>
   );

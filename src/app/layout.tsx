@@ -1,3 +1,4 @@
+
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
@@ -5,6 +6,7 @@ import { UserContextProvider } from "../features/user/UserContextProvider";
 import HamburgerMenu from "@/components/HamburgerMenu/HamburgerMenu";
 import { ReactQueryClientProvider } from "@/features/user/query/QueryClientProvider";
 import { ModalContextProvider } from "@/features/modal/ModalContextProvider";
+
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -26,6 +28,7 @@ export default function RootLayout({
             <body className={inter.className}>
               <HamburgerMenu />
               <div>{children}</div>
+
             </body>
           </html>
         </ModalContextProvider>

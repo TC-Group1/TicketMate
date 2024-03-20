@@ -1,4 +1,106 @@
-.ticketTable {
-    width: 70%;
-    background: rgb(238,238,238);
+
+
+.h1 {
+    font-size: 18px;
+}
+
+.h2 {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.dashboardLeft {
+display: flex;
+flex-direction: column;
+align-items: center;
+padding-right: 20px;
+width: 100%;
+border-right: 1px solid #c8cbd9;
+}
+.dashboardRight {
+display: flex;
+flex-direction: column;
+width: 100%;
+align-items: center;
+padding-left: 20px;
+}
+.headerFlex {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding-right: 20px;
+}
+
+.button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 109px;
+    height: 32px;
+    font-size: 12px;
+    background: #FBFCFE;
+    border: 0.5px solid #DDE4F0;
+    color: #5A6ACF;
+    box-shadow: none;
+    border-radius: 5px;
+}
+
+.gridButton {
+    grid-area: button;
+}
+
+.tableContainer {
+    font-size: 12px;
+    border-spacing: 0px 10px;
+}
+
+.lightText {
+    color: #A3A3A3;
+}
+
+.lastModified {
+    width: 200px;
+}
+.flexLi {
+    display: flex;
+    justify-content: space-between;
+    color: #000;
+    font-size: 16px;
+}
+
+.darkText {
+    
+    color: #A3A3A3;
+}
+
+.ul {
+    width: 75%;
+    align-self: flex-start;
+}
+
+.spaceBetween {
+    display: flex;
+    justify-content: space-between;
+    width: 50%;
+}
+.teamHeader {
+        font-size: 14px;
+        font-weight: 600;
+        padding-bottom: 30px;
+        align-self: flex-start;
+
+}
+
+.subText {
+    font-size: 12px;
+}
+
+.projectName {
+    font-size: 12px;
+    color: #A3A3A3;
+    align-self: flex-start;
+}
+
+.textSmall {
+    font-size: 12px;
 }

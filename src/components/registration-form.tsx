@@ -1,7 +1,6 @@
 import React, { useState, useRef, FC } from "react";
 import { RegistrationFormData } from "../types";
 import Registration from "@/hooks/auth/register";
-import { useRouter } from "next/navigation";
 
 // margin top input field
 const marginTop = {
@@ -48,7 +47,6 @@ const RegistrationForm: FC = () => {
     }
     if (e.target.name === "password") {
       setPasswordError(false);
-      setShowPasswordRequirements(false);
       passwordErrorRef.current = false;
     }
     if (e.target.name === "confirmPassword") {
@@ -57,7 +55,9 @@ const RegistrationForm: FC = () => {
       setConfirmPassword(e.target.value);
     }
 
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    e.target.name === "confirmPassword"
+      ? setConfirmPassword(e.target.value)
+      : setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   // REGEX FOR EMAIL, PASSWORD, PHONE NUMBERS
@@ -66,7 +66,8 @@ const RegistrationForm: FC = () => {
     /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
   const phoneNumberRegex = /^[2-9]{1}[0-9]{2}[2-9]{1}[0-9]{2}[0-9]{4}$/;
 
-  // INPUT FIELD ERROR HANDLING FUNCTIONS
+  // ERROR HANDLING FUNCTIONS
+  // Input fields
 
   const emailErrorHandling = () => {
     setEmailError(true);
@@ -85,7 +86,27 @@ const RegistrationForm: FC = () => {
   const passwordErrorHandling = () => {
     setShowPasswordRequirements(true);
     setPasswordError(true);
+    passwordErrorRef.current = true;
     setConfirmPasswordError(true);
+  };
+
+  // FORM VALIDATION FUNCTION
+
+  const validateFormInputs = (
+    email: string,
+    phoneNumber: string,
+    password: string,
+    confirmPassword: string
+  ) => {
+    // Input field checks
+
+    if (!emailRegex.test(email)) emailErrorHandling();
+    if (phoneNumber !== null) phoneNumberErrorHandling(phoneNumber);
+    if (password !== confirmPassword) {
+      setConfirmPasswordError(true);
+      confirmPasswordErrorRef.current === true;
+    }
+    if (!passwordRegex.test(password)) passwordErrorHandling();
   };
 
   // FORM SUBMISSION FUNCTION
@@ -93,13 +114,12 @@ const RegistrationForm: FC = () => {
   const handleFormSubmission = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    // Input field checks
-    if (!emailRegex.test(formData.email)) emailErrorHandling();
-    else if (formData.phoneNumber !== null)
-      phoneNumberErrorHandling(formData.phoneNumber);
-    else if (formData.password !== confirmPassword)
-      setConfirmPasswordError(true);
-    else if (!passwordRegex.test(formData.password)) passwordErrorHandling();
+    validateFormInputs(
+      formData.email,
+      formData.phoneNumber,
+      formData.password,
+      confirmPassword
+    );
 
     // Error or query handling
     if (

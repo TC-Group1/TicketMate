@@ -1,0 +1,68 @@
+
+.header{
+    padding: 1rem;
+    background-color: rgb(255, 255, 255);
+    display: flex;
+    justify-content: space-between;
+}
+
+.headerComponent{
+    font-size: 30px;
+}
+
+.welcomeText{
+    color: rgb(0,0,0);
+    text-align: center;
+    font-size: 14px;
+}
+
+.hamburgerButton{
+    width: 5vh;
+}
+
+.userNav{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 300px;
+    padding-right: 20px;
+}
+
+.dropdownMenu {
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.flex {
+    display: flex;
+    align-items: center;
+    padding-right: 20px;
+}
+
+.userInfo {
+    display: flex;
+    align-items: center;
+    padding-right: 20px;
+}
+
+.searchBar {
+    width: 400px;
+    height: 30px;
+    border-radius: 5px;
+    padding-left: 20px;
+    background: #F5F6FB;
+    border: 1.5px solid rgba(0,0,0,0.1);
+    background-image: url('../../../public/images/search.webp');
+    background-repeat: no-repeat;
+    background-size: 20px;
+    background-position: 97%;
+    font-size: 12px;
+}
+
+.searchContainer {
+    display: flex;
+    align-items: center;
+    padding-right: 20px;
+}
