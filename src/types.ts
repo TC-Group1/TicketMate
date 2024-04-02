@@ -5,7 +5,6 @@ export interface StyleSheet {
 }
 
 export interface User {
-
     id: string | undefined;
     firstName: string | undefined;
     lastName: string | undefined;
@@ -44,7 +43,7 @@ export interface UserContext {
   setError: React.Dispatch<React.SetStateAction<string | null>>;
   isLoading: Boolean;
   setIsLoading: React.Dispatch<React.SetStateAction<Boolean>>;
-  handleLoginSubmit: (
+  useLoginSubmission: (
     username: string,
     password: string,
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>

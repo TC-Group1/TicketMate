@@ -2,7 +2,7 @@
 
 import { createContext, useState, useContext } from 'react';
 import { User, UserContext } from '../../types';
-import authenticate from '../../hooks/auth/authenticate';
+import useAuthentication from '../../hooks/auth/useAuthentication';
 
 
 const UserContext = createContext<UserContext | null>(null);
@@ -13,10 +13,10 @@ export const UserContextProvider = ({ children } : any) => {
     const [error, setError] = useState<string | null>(null);
     const [isAuthenticated, setIsAuthenticated] = useState<Boolean>(false);
 
-    const handleLoginSubmit = async (username: string, password: string, event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    const useLoginSubmission = async (username: string, password: string, event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         event.preventDefault();
         try{
-          let userData = await authenticate(username, password);
+          let userData = await useAuthentication(username, password);
           let user = userData.data;
 
           if(userData.error){
@@ -42,7 +42,7 @@ export const UserContextProvider = ({ children } : any) => {
         setError,
         isLoading,
         setIsLoading,
-        handleLoginSubmit,
+        useLoginSubmission,
     };
   
 
