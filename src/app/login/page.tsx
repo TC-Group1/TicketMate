@@ -36,7 +36,7 @@ const LoginPage: FC = () => {
       setUserNotification("Please enter a username and password");
       return;
     }
-    userContext?.handleLoginSubmit(username, password, event);
+    userContext?.useLoginSubmission(username, password, event);
   }
 
   return (
@@ -75,7 +75,7 @@ const LoginPage: FC = () => {
         </form>
        
         <div className="sign-up">
-          Don't have an account? 
+          Don&apos;t have an account? 
           <button id="signup-btn" onClick={openModal}>
             Sign up now
           </button>
