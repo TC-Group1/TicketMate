@@ -7,7 +7,7 @@ import { AiOutlineDown, AiTwotoneBell, AiOutlineSearch } from "react-icons/ai";
 import { CiUser } from "react-icons/ci";
 import { useUserContext } from '@/features/user/UserContextProvider';
 import { UserContext } from '@/types';
-import Logo from '../Logo/Logo';
+import Logo from '../canvas/Logo';
 
 
 
