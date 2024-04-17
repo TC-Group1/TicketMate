@@ -19,7 +19,7 @@ const Menu: FC = () => {
   
   return (
     <div className={styles.header}>
-       <Logo />
+      <Logo />
       <div className={styles.searchContainer}>
         <input className={styles.searchBar} type="text" placeholder="Search" />
       </div>
