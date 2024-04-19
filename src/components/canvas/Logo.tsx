@@ -1,52 +1,55 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useThree, Canvas } from 'react-three-fiber';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import * as THREE from 'three';
+import { OrbitControls } from '@react-three/drei';
 
 const Logo = () => {
-  const { scene } = useThree();
+  const { scene, camera } = useThree();
+  const modelRef = useRef<THREE.Group>();
 
+  // Load the GLTF model
   useEffect(() => {
-    const loader = new GLTFLoader(); // Use GLTFLoader to load glb model
-
+    const loader = new GLTFLoader();
     loader.load('/3d-models/logo.glb', (gltf) => {
-      const model = gltf.scene;
-      
-      // Set up shadows for each mesh in the model
+      const model = gltf.scene as THREE.Group; // Cast to THREE.Group
+      model.scale.set(7, 7, 7); // Adjust the scaling factor as needed
+      model.position.set(-4, 7, 0); // Adjust the initial position
       model.traverse((child) => {
-        if (child.isMesh) {
-          child.castShadow = true; // Enable casting shadows
-          child.receiveShadow = true; // Enable receiving shadows
+        if ((child as THREE.Mesh).isMesh) {
+          child.castShadow = true;
+          child.receiveShadow = true;
         }
       });
-
       scene.add(model);
+      modelRef.current = model; // Store a reference to the model
     }, undefined, (error) => {
       console.error('Error loading GLTF model:', error);
     });
 
-    // Set up lighting for shadows
     const light = new THREE.DirectionalLight(0xffffff, 1);
-    light.position.set(-4, 3, 6); // Position of the light
-    light.castShadow = true; // Enable casting shadows from this light
+    light.position.set(-4, 3, 6);
+    light.castShadow = true;
     scene.add(light);
 
-    // Set background color
-    scene.background = new THREE.Color(0xffffff); // Use THREE.Color to set background color
-    
+    scene.background = new THREE.Color(0xffffff);
+
     return () => {
-      scene.children = scene.children.filter(child => child.type !== 'Group');
+      // Remove the loaded model when the component unmounts
+      if (modelRef.current) {
+        scene.remove(modelRef.current);
+      }
     };
-  }, [scene]); // Remove THREE from dependencies
+  }, [scene]);
 
   return null;
 };
 
 const ThreeCanvasWithLogo = () => (
-  <div className="relative w-10">
-    <Canvas className="absolute top-0 left-0 w-22 h-22" shadows>
-      {/* Enable shadows in the Canvas component */}
+  <div className="relative w-40">
+    <Canvas className="absolute top-0 left-0 w-full h-full" shadows camera={{ position: [0, 0, 10] }}>
       <Logo />
+      <OrbitControls />
     </Canvas>
   </div>
 );
