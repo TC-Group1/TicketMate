@@ -1,12 +1,9 @@
-
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { UserContextProvider } from "../features/user/UserContextProvider";
-import Menu from "@/components/Menu/Menu";
 import { ReactQueryClientProvider } from "@/features/user/query/QueryClientProvider";
 import { ModalContextProvider } from "@/features/modal/ModalContextProvider";
-
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -25,10 +22,7 @@ export default function RootLayout({
       <UserContextProvider>
         <ModalContextProvider>
           <html lang="en">
-            <body className={inter.className}>
-              <Menu />
-              <div>{children}</div>
-            </body>
+            <body className={inter.className}>{children}</body>
           </html>
         </ModalContextProvider>
       </UserContextProvider>

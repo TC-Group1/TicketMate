@@ -1,13 +1,13 @@
 "use client";
 
 import React, { useState, FC, useRef, useContext } from "react";
-import { useUserContext } from "../../features/user/UserContextProvider";
+import { useUserContext } from "../../../features/user/UserContextProvider";
 import { useRouter } from "next/router";
-import { StyleSheet, UserContext } from "../../types";
+import { StyleSheet, UserContext } from "../../../types";
 
 // Modal additions
-import Modal from "../../components/modal";
-import RegistrationForm from "../../components/registration-form";
+import Modal from "../../../components/modal";
+import RegistrationForm from "../../../components/registration-form";
 import { useModal } from "@/features/modal/ModalContextProvider";
 
 const LoginPage: FC = () => {
@@ -73,16 +73,15 @@ const LoginPage: FC = () => {
             Sign in
           </button>
         </form>
-       
+
         <div className="sign-up">
-          Don&apos;t have an account? 
+          Don&apos;t have an account?
           <button id="signup-btn" onClick={openModal}>
             Sign up now
           </button>
           {isOpen && <Modal form={<RegistrationForm />} />}
         </div>
 
-         
         {userNotification ? (
           <div style={styles.errorBox}>
             <h2 style={styles.errorText}>{userNotification}</h2>
