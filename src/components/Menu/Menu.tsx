@@ -7,7 +7,7 @@ import { AiOutlineDown, AiTwotoneBell, AiOutlineSearch } from "react-icons/ai";
 import { CiUser } from "react-icons/ci";
 import { useUserContext } from '@/features/user/UserContextProvider';
 import { UserContext } from '@/types';
-
+import Logo from '../canvas/Logo';
 
 
 
@@ -19,6 +19,7 @@ const Menu: FC = () => {
   
   return (
     <div className={styles.header}>
+      <Logo />
       <div className={styles.searchContainer}>
         <input className={styles.searchBar} type="text" placeholder="Search" />
       </div>
