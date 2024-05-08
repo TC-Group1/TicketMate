@@ -43,13 +43,19 @@ const LoginPage: FC = () => {
       setUserNotification("Please enter a username and password");
       return;
     }
+
     if (!username.includes("@")) {
       const stripSpecialChars = username.replace(/[^+\d]+/g, "");
-      !phoneNumberRegex.test(stripSpecialChars)
-        ? setError(true)
-        : setError(false);
-    } else {
-      !emailRegex.test(username) ? setError(true) : setError(false);
+
+      if (!phoneNumberRegex.test(stripSpecialChars)) {
+        setError(true);
+        throw new Error("Invalid field input");
+      }
+    } else if (username.includes("@")) {
+      if (!emailRegex.test(username)) {
+        setError(true);
+        throw new Error("Invalid field input");
+      }
     }
 
     userContext?.useLoginSubmission(username, password, event);
