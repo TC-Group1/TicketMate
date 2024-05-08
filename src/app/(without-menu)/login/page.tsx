@@ -14,17 +14,24 @@ const LoginPage: FC = () => {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState("");
   const [userNotification, setUserNotification] = useState<string>("");
+  const [error, setError] = useState<boolean>(false);
 
   const userContext: UserContext | null = useUserContext();
 
   const { openModal, isOpen } = useModal(); // From Modal Context
 
+  // Email and Phone Number REGEX
+  const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
+  const phoneNumberRegex = /^[2-9]{1}[0-9]{2}[2-9]{1}[0-9]{2}[0-9]{4}$/;
+
   const handleUsernameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setUsername(event.target.value);
+    setError(false);
   };
 
   const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(event.target.value);
+    setError(false);
   };
 
   function handleSubmit(
@@ -36,6 +43,15 @@ const LoginPage: FC = () => {
       setUserNotification("Please enter a username and password");
       return;
     }
+    if (!username.includes("@")) {
+      const stripSpecialChars = username.replace(/[^+\d]+/g, "");
+      !phoneNumberRegex.test(stripSpecialChars)
+        ? setError(true)
+        : setError(false);
+    } else {
+      !emailRegex.test(username) ? setError(true) : setError(false);
+    }
+
     userContext?.useLoginSubmission(username, password, event);
   }
 
@@ -52,6 +68,7 @@ const LoginPage: FC = () => {
               onChange={handleUsernameChange}
               placeholder="Email or Phone"
               required
+              style={error ? { border: "1.5px solid red" } : {}}
             />
             <span className="fas fa-user"></span>
           </div>
@@ -62,9 +79,17 @@ const LoginPage: FC = () => {
               value={password}
               onChange={handlePasswordChange}
               placeholder="Password"
+              style={error ? { border: "1.5px solid red" } : {}}
               required
             />
             <span className="fas fa-lock"></span>
+          </div>
+          <div>
+            {error ? (
+              <p style={{ color: "red", textAlign: "left", fontSize: "small" }}>
+                Invalid username or password
+              </p>
+            ) : null}
           </div>
           <div className="forgot-pass">
             <a href="#">Forgot Password?</a>
