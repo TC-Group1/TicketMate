@@ -153,7 +153,7 @@ const RegistrationForm: FC = () => {
       aria-label="Registration Information"
       className="content"
     >
-      {/* <h1
+      <h1
         id="TicketMate-registration-form"
         className="text"
         role="heading"
@@ -163,16 +163,8 @@ const RegistrationForm: FC = () => {
       >
         TicketMate <br />
         Registration
-      </h1> */}
-      <div>
-        <Canvas
-          className="absolute top-10 left-10 w-full h-full"
-          shadows
-          camera={{ position: [0, 0, 5] }}
-        >
-          <Logo />
-        </Canvas>
-      </div>
+      </h1>
+
       <form
         onSubmit={handleFormSubmission}
         name="registration-form"
