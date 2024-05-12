@@ -49,12 +49,12 @@ const LoginPage: FC = () => {
 
       if (!phoneNumberRegex.test(stripSpecialChars)) {
         setError(true);
-        throw new Error("Invalid field input");
+        return;
       }
     } else if (username.includes("@")) {
       if (!emailRegex.test(username)) {
         setError(true);
-        throw new Error("Invalid field input");
+        return;
       }
     }
 
