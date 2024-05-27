@@ -22,6 +22,8 @@ const config: Config = {
       "aqua-blue": "rgb(95, 183, 207)",
       "light-purple": "rgb(90, 121, 200)",
       "dark-purple": "rgb(60, 51, 154)",
+      "light-text": "#A3A3A3",
+      "light-border": "#C8CBD9",
     },
   },
   plugins: [],
