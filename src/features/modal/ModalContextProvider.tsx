@@ -2,6 +2,7 @@
 
 import { createContext, useContext, useState, useRef } from "react";
 import { ModalContext } from "@/types";
+import CreateTicketModal from "./CreateTicketModal";
 
 const ModalContext = createContext<ModalContext | null>(null);
 
@@ -31,9 +32,14 @@ export const ModalContextProvider = ({ children }: any) => {
   };
 
   return (
-    <ModalContext.Provider value={modalProps}>{children}</ModalContext.Provider>
+    <ModalContext.Provider value={modalProps}>
+      {/* Render the CreateTicketModal conditionally */}
+      <CreateTicketModal isOpen={isOpen} onClose={closeModal} />
+      {children}
+    </ModalContext.Provider>
   );
 };
+
 export function useModal() {
   const context = useContext(ModalContext);
   if (context === null) {
