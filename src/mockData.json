@@ -1,15 +1,156 @@
 {
-    "user": {
-      "id": "1",
-      "firstName": "John",
-      "lastName": "Doe",
-      "email": "test@gmail.com",
-      "avatar": "https://www.w3schools.com/howto/img_avatar.png",
-      "role": "Developer",
-      "phoneNumber": "123-456-7890"
-    },
-    "projects": [
-      {
+  "user": {
+    "id": "1",
+    "firstName": "John",
+    "lastName": "Doe",
+    "email": "test@gmail.com",
+    "avatar": "https://www.w3schools.com/howto/img_avatar.png",
+    "role": "Developer",
+    "phoneNumber": "123-456-7890"
+  },
+  "projects": [
+    {
+      "id": 1,
+      "name": "Project 1",
+      "isActive": true,
+      "team": [
+        {
+          "id": "1",
+          "firstName": "John",
+          "lastName": "Doe",
+          "email": "test@gmail.com",
+          "avatar": "https://www.w3schools.com/howto/img_avatar.png",
+          "role": "Owner",
+          "phoneNumber": "123-456-7890"
+        },
+        {
+          "id": "1",
+          "firstName": "Jane",
+          "lastName": "Doe",
+          "email": "test@gmail.com",
+          "avatar": "https://www.w3schools.com/howto/img_avatar.png",
+          "role": "Project Manager",
+          "phoneNumber": "123-456-7890"
+        },
+        {
+          "id": "1",
+          "firstName": "Susan",
+          "lastName": "Anthony",
+          "email": "test@gmail.com",
+          "avatar": "https://www.w3schools.com/howto/img_avatar.png",
+          "role": "Developer",
+          "phoneNumber": "123-456-7890"
+        },
+        {
+          "id": "1",
+          "firstName": "James",
+          "lastName": "Whitaker",
+          "email": "test@gmail.com",
+          "avatar": "https://www.w3schools.com/howto/img_avatar.png",
+          "role": "Developer",
+          "phoneNumber": "123-456-7890"
+        }
+      ],
+      "tickets": [
+        {
+          "id": 1,
+          "title": "Feature One",
+          "assignees": ["John Doe", "Jane Doe"],
+          "priority": "High",
+          "dateCreated": "2021-09-01",
+          "createdBy": "John Doe",
+          "status": "In Progress",
+          "lastModified": "2021-09-01",
+          "description": "This is a new feature that needs to be added to the application."
+        },
+        {
+          "id": 2,
+          "title": "Feature Two",
+          "assignees": ["John Doe", "Jane Doe"],
+          "priority": "High",
+          "dateCreated": "2021-09-01",
+          "createdBy": "John Doe",
+          "status": "New",
+          "lastModified": "2021-09-01",
+          "description": "This is a new feature that needs to be added to the application."
+        },
+        {
+          "id": 3,
+          "title": "Feature Three",
+          "assignees": ["John Doe", "Jane Doe"],
+          "priority": "High",
+          "dateCreated": "2021-09-01",
+          "createdBy": "John Doe",
+          "status": "Completed",
+          "lastModified": "2021-09-01",
+          "description": "This is a new feature that needs to be added to the application."
+        },
+        {
+          "id": 4,
+          "title": "Feature Four",
+          "assignees": ["John Doe", "Jane Doe"],
+          "priority": "High",
+          "dateCreated": "2021-09-01",
+          "createdBy": "John Doe",
+          "status": "In Progress",
+          "lastModified": "2021-09-01",
+          "description": "This is a new feature that needs to be added to the application."
+        }
+      ]
+    }
+  ],
+  "sprints": [
+    {
+      "title": "Mock Sprint",
+      "dateStart": "Jun-03",
+      "dateEnd": "Jun-10",
+      "tickets": [
+        {
+          "id": 1,
+          "title": "Feature One",
+          "assignees": ["John Doe", "Jane Doe"],
+          "priority": "High",
+          "dateCreated": "2021-09-01",
+          "createdBy": "John Doe",
+          "status": "In Progress",
+          "lastModified": "2021-09-01",
+          "description": "This is a new feature that needs to be added to the application."
+        },
+        {
+          "id": 2,
+          "title": "Feature Two",
+          "assignees": ["John Doe", "Jane Doe"],
+          "priority": "High",
+          "dateCreated": "2021-09-01",
+          "createdBy": "John Doe",
+          "status": "New",
+          "lastModified": "2021-09-01",
+          "description": "This is a new feature that needs to be added to the application."
+        },
+        {
+          "id": 3,
+          "title": "Feature Three",
+          "assignees": ["John Doe", "Jane Doe"],
+          "priority": "High",
+          "dateCreated": "2021-09-01",
+          "createdBy": "John Doe",
+          "status": "Completed",
+          "lastModified": "2021-09-01",
+          "description": "This is a new feature that needs to be added to the application."
+        },
+        {
+          "id": 4,
+          "title": "Feature Four",
+          "assignees": ["John Doe", "Jane Doe"],
+          "priority": "High",
+          "dateCreated": "2021-09-01",
+          "createdBy": "John Doe",
+          "status": "In Progress",
+          "lastModified": "2021-09-01",
+          "description": "This is a new feature that needs to be added to the application."
+        }
+      ],
+      "project": {
         "id": 1,
         "name": "Project 1",
         "isActive": true,
@@ -55,10 +196,7 @@
           {
             "id": 1,
             "title": "Feature One",
-            "assignees": [
-              "John Doe",
-              "Jane Doe"
-            ],
+            "assignees": ["John Doe", "Jane Doe"],
             "priority": "High",
             "dateCreated": "2021-09-01",
             "createdBy": "John Doe",
@@ -69,10 +207,7 @@
           {
             "id": 2,
             "title": "Feature Two",
-            "assignees": [
-              "John Doe",
-              "Jane Doe"
-            ],
+            "assignees": ["John Doe", "Jane Doe"],
             "priority": "High",
             "dateCreated": "2021-09-01",
             "createdBy": "John Doe",
@@ -83,10 +218,7 @@
           {
             "id": 3,
             "title": "Feature Three",
-            "assignees": [
-              "John Doe",
-              "Jane Doe"
-            ],
+            "assignees": ["John Doe", "Jane Doe"],
             "priority": "High",
             "dateCreated": "2021-09-01",
             "createdBy": "John Doe",
@@ -97,10 +229,7 @@
           {
             "id": 4,
             "title": "Feature Four",
-            "assignees": [
-              "John Doe",
-              "Jane Doe"
-            ],
+            "assignees": ["John Doe", "Jane Doe"],
             "priority": "High",
             "dateCreated": "2021-09-01",
             "createdBy": "John Doe",
@@ -110,5 +239,6 @@
           }
         ]
       }
-    ]
-  }
+    }
+  ]
+}

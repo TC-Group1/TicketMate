@@ -1,6 +1,8 @@
-import { FC, ReactNode } from "react";
+import { Ticket } from "@/types";
+import { FC } from "react";
+import TicketTableRow from "./TicketTableRow";
 
-const TicketTable: FC<{ children: ReactNode }> = ({ children }) => {
+const TicketTable: FC<{ tickets: Ticket[] }> = ({ tickets }) => {
   return (
     <table className={"text-xs border-spacing-x-2 border-separate"}>
       <thead className="text-left">
@@ -12,7 +14,11 @@ const TicketTable: FC<{ children: ReactNode }> = ({ children }) => {
         <th>Created By</th>
         <th>Modified</th>
       </thead>
-      <tbody className="text-left">{children}</tbody>
+      <tbody className="text-left">
+        {tickets.map((ticket) => (
+          <TicketTableRow {...{ ticket }} />
+        ))}
+      </tbody>
     </table>
   );
 };
