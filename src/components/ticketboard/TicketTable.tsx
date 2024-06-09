@@ -4,7 +4,7 @@ import TicketTableRow from "./TicketTableRow";
 
 const TicketTable: FC<{ tickets: Ticket[] }> = ({ tickets }) => {
   return (
-    <table className={"text-xs border-spacing-x-2 border-separate"}>
+    <table className="text-xs border-spacing-x-2 border-separate w-full">
       <thead className="text-left">
         <th>Feature</th>
         <th>Assigned to</th>
@@ -16,7 +16,7 @@ const TicketTable: FC<{ tickets: Ticket[] }> = ({ tickets }) => {
       </thead>
       <tbody className="text-left">
         {tickets.map((ticket) => (
-          <TicketTableRow {...{ ticket }} />
+          <TicketTableRow {...{ ticket }} key={ticket.id} />
         ))}
       </tbody>
     </table>

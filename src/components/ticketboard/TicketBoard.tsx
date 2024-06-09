@@ -14,8 +14,9 @@ const TicketBoard: FC<{ tickets: Ticket[] }> = ({ tickets }) => {
           New Sprint
         </button>
       </div>
-      {sprints && sprints.map((sprint) => <SprintDisplay {...{ sprint }} />)}
-      <div className="border-spacing-x-[10px]">
+      {sprints &&
+        sprints.map((sprint: Sprint) => <SprintDisplay {...{ sprint }} />)}
+      <div className="border-spacing-x-3 p-2 w-full">
         <h3 className="text-light-text text-xs">
           Tickets from xyz project (still need to implement project grab)
         </h3>

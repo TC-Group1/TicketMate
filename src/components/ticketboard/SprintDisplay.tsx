@@ -5,7 +5,7 @@ import CreateTicketButton from "./CreateTicketButton";
 
 const SprintDisplay: FC<{ sprint: Sprint }> = ({ sprint }) => {
   return (
-    <div className="bg-input-back rounded p-4">
+    <div className="bg-input-back rounded p-2 w-full border-spacing-x-3">
       <div className="flex items-center gap-4">
         <h3 className="text-lg">{sprint.title}</h3>
         <div className="text-xs flex gap-1">
