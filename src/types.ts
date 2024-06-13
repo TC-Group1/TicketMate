@@ -76,4 +76,5 @@ export interface Sprint {
   dateEnd: string;
   tickets: Array<Ticket>;
   project: Project;
+  points: number;
 }

@@ -104,6 +104,7 @@
       "title": "Mock Sprint",
       "dateStart": "Jun-03",
       "dateEnd": "Jun-10",
+      "points": 1200,
       "tickets": [
         {
           "id": 1,
