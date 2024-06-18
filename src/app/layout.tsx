@@ -3,7 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { UserContextProvider } from "../features/user/UserContextProvider";
 import { ReactQueryClientProvider } from "@/features/user/query/QueryClientProvider";
-import { ModalContextProvider } from "@/features/modal/ModalContextProvider";
+import { ModalContextProvider } from "@/context/ModalContextProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
