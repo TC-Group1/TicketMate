@@ -1,10 +1,10 @@
 "use client"
 
 import React, { createContext, useContext, useState, ReactNode } from "react"
-import { ModalContextProps } from "@/types"
+import { ModalContext } from "@/types"
 import CreateTicketModal from "../../components/modals/CreateTicketModal"
 
-export const ModalContext = createContext<ModalContextProps | null>(null)
+export const ModalContextProp = createContext<ModalContext | null>(null)
 
 export const ModalContextProvider = ({ children }: { children: ReactNode }) => {
 	const [isOpen, setIsOpen] = useState<boolean>(false)
@@ -19,15 +19,15 @@ export const ModalContextProvider = ({ children }: { children: ReactNode }) => {
 	}
 
 	return (
-		<ModalContext.Provider value={modalProps}>
-			{isOpen && <CreateTicketModal onClose={closeModal} />}
+		<ModalContextProp.Provider value={modalProps}>
+			{isOpen && <CreateTicketModal isOpen={isOpen} onClose={closeModal} />} 
 			{children}
-		</ModalContext.Provider>
+		</ModalContextProp.Provider>
 	)
 }
 
-export function useModal() {
-	const context = useContext(ModalContext)
+export function useModalContext() {
+	const context = useContext(ModalContextProp)
 	if (!context) {
 		throw new Error("useModal must be used within a ModalContextProvider")
 	}

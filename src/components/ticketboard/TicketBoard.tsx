@@ -1,12 +1,15 @@
-import React, { FC } from "react"
+"use client"
+
+
+import React, { FC, useContext } from "react"
 import { Ticket } from "@/types"
 import styles from "./TicketBoard.module.css"
-import { useModal } from "@/features/modal/ModalContextProvider"
+import { ModalContextProp, ModalContextProvider, useModalContext} from "@/features/modal/ModalContextProvider"
 
 const TicketBoard: FC<{ tickets: Ticket[] }> = ({ tickets }) => {
-	const { openModal } = useModal()
-
 	
+	const context = useContext(ModalContextProp);
+	const openModal = context?.openModal
 
 	return (
 		<div className={styles.dashboardLeft}>
