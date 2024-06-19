@@ -1,14 +1,14 @@
 import config from '@/config';
 import { useQuery } from '@tanstack/react-query';
 
-const useAuthentication = async (username: string, password: string) => {
+const authentication = async (username: string, password: string) => {
 
   const baseURL: string | undefined = config.NEXT_API_BASEURL;
   const userAPIEndpoint: string | undefined = config.NEXT_API_USER_ENDPOINT;
 
-  const data = await useAuthenticate(username, password);
+  const data = await authenticate(username, password);
 
-  async function useAuthenticate (username: string, password: string) {
+  async function authenticate (username: string, password: string) {
     const {isPending, data, error } = useQuery({
       queryKey: ['userData'],
       queryFn: async () => {
@@ -27,4 +27,4 @@ const useAuthentication = async (username: string, password: string) => {
 return { isPending: data.isPending, data: data.data, error: data.error ? data.error : null};
 };
 
-export default useAuthentication;
+export default authentication;

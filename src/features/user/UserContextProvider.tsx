@@ -1,11 +1,11 @@
 "use client";
 
 import { createContext, useState, useContext } from 'react';
-import { User, UserContext } from '../../types';
-import useAuthentication from '../../hooks/auth/useAuthentication';
+import { User, UserContextType } from '../../types';
+import authentication from '../../hooks/auth/useAuthentication';
 
 
-const UserContext = createContext<UserContext | null>(null);
+const UserContext = createContext<UserContextType | null>(null);
 
 export const UserContextProvider = ({ children } : any) => {
     const [user, setUser] = useState<User | null>(null);
@@ -13,10 +13,10 @@ export const UserContextProvider = ({ children } : any) => {
     const [error, setError] = useState<string | null>(null);
     const [isAuthenticated, setIsAuthenticated] = useState<Boolean>(false);
 
-    const useLoginSubmission = async (username: string, password: string, event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    const submitLogin = async (username: string, password: string, event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         event.preventDefault();
         try{
-          let userData = await useAuthentication(username, password);
+          let userData = await authentication(username, password);
           let user = userData.data;
 
           if(userData.error){
@@ -42,7 +42,7 @@ export const UserContextProvider = ({ children } : any) => {
         setError,
         isLoading,
         setIsLoading,
-        useLoginSubmission,
+        submitLogin,
     };
   
 

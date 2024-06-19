@@ -34,7 +34,7 @@ export interface Project {
     isActive: boolean | undefined;
 }
 
-export interface UserContext {
+export interface UserContextType {
   user: User | null;
   setUser: React.Dispatch<React.SetStateAction<User | null>>;
   isAuthenticated: Boolean;
@@ -43,7 +43,7 @@ export interface UserContext {
   setError: React.Dispatch<React.SetStateAction<string | null>>;
   isLoading: Boolean;
   setIsLoading: React.Dispatch<React.SetStateAction<Boolean>>;
-  useLoginSubmission: (
+  submitLogin: (
     username: string,
     password: string,
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>
@@ -70,3 +70,9 @@ export interface ModalContext {
   setIsOpen?: React.Dispatch<React.SetStateAction<boolean>> | undefined;
 }
 
+// Interface for modal
+export interface ModalContextProps {
+  isOpen: boolean;
+  openModal: () => void;
+  closeModal: () => void;
+}
