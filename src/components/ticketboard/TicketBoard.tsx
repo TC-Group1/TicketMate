@@ -1,10 +1,12 @@
-import { FC } from "react"
+import React, { FC } from "react"
 import { Ticket } from "@/types"
 import styles from "./TicketBoard.module.css"
-import { useModal } from "@/context/ModalContextProvider"
+import { useModal } from "@/features/modal/ModalContextProvider"
 
 const TicketBoard: FC<{ tickets: Ticket[] }> = ({ tickets }) => {
 	const { openModal } = useModal()
+
+	
 
 	return (
 		<div className={styles.dashboardLeft}>

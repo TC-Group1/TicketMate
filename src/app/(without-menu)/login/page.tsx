@@ -6,7 +6,7 @@ import { useRouter } from "next/router"
 import { StyleSheet, UserContext } from "../../../types"
 
 // Modal additions
-import Modal from "../../../components/modal"
+import Modal from "../../../components/modals/CreateTicketModal"
 import RegistrationForm from "../../../components/registration-form"
 import { useModal } from "@/features/modal/ModalContextProvider"
 

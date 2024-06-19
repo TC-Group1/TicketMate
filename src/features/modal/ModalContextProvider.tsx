@@ -1,49 +1,35 @@
-"use client";
+"use client"
 
-import { createContext, useContext, useState, useRef } from "react";
-import { ModalContext } from "@/types";
-import CreateTicketModal from "./CreateTicketModal";
+import React, { createContext, useContext, useState, ReactNode } from "react"
+import { ModalContextProps } from "@/types"
+import CreateTicketModal from "../../components/modals/CreateTicketModal"
 
-const ModalContext = createContext<ModalContext | null>(null);
+export const ModalContext = createContext<ModalContextProps | null>(null)
 
-export const ModalContextProvider = ({ children }: any) => {
-  const [isOpen, setIsOpen] = useState<boolean>(false); // Modal state
+export const ModalContextProvider = ({ children }: { children: ReactNode }) => {
+	const [isOpen, setIsOpen] = useState<boolean>(false)
 
-  const openModalRef = useRef<boolean>(false);
+	const openModal = () => setIsOpen(true)
+	const closeModal = () => setIsOpen(false)
 
-  const openModal = () => {
-    openModalRef.current = true;
-    setIsOpen(true);
-    return;
-  };
+	const modalProps = {
+		isOpen,
+		openModal,
+		closeModal,
+	}
 
-  const closeModal = () => {
-    openModalRef.current = false;
-    setIsOpen(false);
-    return;
-  };
-
-  const modalProps = {
-    isOpen,
-    setIsOpen,
-    openModalRef,
-    openModal,
-    closeModal,
-  };
-
-  return (
-    <ModalContext.Provider value={modalProps}>
-      {/* Render the CreateTicketModal conditionally */}
-      <CreateTicketModal isOpen={isOpen} onClose={closeModal} />
-      {children}
-    </ModalContext.Provider>
-  );
-};
+	return (
+		<ModalContext.Provider value={modalProps}>
+			{isOpen && <CreateTicketModal onClose={closeModal} />}
+			{children}
+		</ModalContext.Provider>
+	)
+}
 
 export function useModal() {
-  const context = useContext(ModalContext);
-  if (context === null) {
-    throw new Error("Error using modal");
-  }
-  return context;
+	const context = useContext(ModalContext)
+	if (!context) {
+		throw new Error("useModal must be used within a ModalContextProvider")
+	}
+	return context
 }
