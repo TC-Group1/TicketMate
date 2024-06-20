@@ -16,7 +16,7 @@ const Dashboard: FC = () => {
 				<h1 className={styles.h1}>Dashboard</h1>
 				<div className={styles.dashboard}>
 					{mockData?.projects && mockData.projects[0]?.tickets && (
-						<TicketBoard tickets={mockData.projects[0].tickets} />
+						<TicketBoard  tickets={mockData.projects[0].tickets} />
 					)}
 					{mockData?.projects && mockData.projects[0]?.team && (
 						<TicketBoardTeam team={mockData.projects[0].team} />

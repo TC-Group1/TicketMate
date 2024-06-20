@@ -1,12 +1,13 @@
 import React, { useEffect, useContext, useState } from "react"
-import { ModalContext } from "../../features/modal/ModalContextProvider"
+
 
 interface CreateTicketModalProps {
-	onClose: () => void
+	onClose: () => void,
+	isOpen: boolean
 }
 
-const CreateTicketModal: React.FC<CreateTicketModalProps> = ({ onClose }) => {
-	// const { isOpen } = useContext(ModalContext)
+const CreateTicketModal: React.FC<CreateTicketModalProps> = ({ onClose, isOpen }) => {
+	
 	const [open, setOpen] = useState(false)
 	
 	useEffect(() => {
