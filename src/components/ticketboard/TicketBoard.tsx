@@ -6,8 +6,6 @@ import { useModal } from "@/features/modal/ModalContextProvider"
 const TicketBoard: FC<{ tickets: Ticket[] }> = ({ tickets }) => {
 	const { openModal } = useModal()
 
-	
-
 	return (
 		<div className={styles.dashboardLeft}>
 			<div className={styles.headerFlex}>
