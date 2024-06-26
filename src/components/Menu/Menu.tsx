@@ -17,7 +17,7 @@ const Menu: FC = () => {
       <Logo />
       <div className="pr-5 relative">
         <input
-          className="w-96 h-8 rounded pl-5 bg-[rgb(245,246,251)] text-xs"
+          className="w-96 h-8 rounded pl-5 bg-input-back text-xs"
           type="text"
           placeholder="Search"
         />

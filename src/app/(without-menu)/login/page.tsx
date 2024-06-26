@@ -39,40 +39,44 @@ const LoginPage: FC = () => {
 		userContext?.useLoginSubmission(username, password, event)
 	}
 
-	return (
-		<div className="login-form">
-			<div className="content">
-				<div className="text">Ticketmate Login</div>
-				<form action="#">
-					<div className="field">
-						{username.length > 0 && <label>Email or Phone</label>}
-						<input
-							type="text"
-							value={username}
-							onChange={handleUsernameChange}
-							placeholder="Email or Phone"
-							required
-						/>
-						<span className="fas fa-user"></span>
-					</div>
-					<div className="field">
-						{password.length > 0 && <label>Password</label>}
-						<input
-							type="password"
-							value={password}
-							onChange={handlePasswordChange}
-							placeholder="Password"
-							required
-						/>
-						<span className="fas fa-lock"></span>
-					</div>
-					<div className="forgot-pass">
-						<a href="#">Forgot Password?</a>
-					</div>
-					<button onClick={(e) => handleSubmit(username, password, e)}>
-						Sign in
-					</button>
-				</form>
+  return (
+    <div className="login-form">
+      <div className="content">
+        <div className="text">Ticketmate Login</div>
+        <form action="#">
+          <div className="field">
+            {username.length > 0 && <label>Email or Phone</label>}
+            <input
+              type="text"
+              value={username}
+              onChange={handleUsernameChange}
+              placeholder="Email or Phone"
+              required
+            />
+            <span className="fas fa-user"></span>
+          </div>
+          <div className="field">
+            {password.length > 0 && <label>Password</label>}
+            <input
+              type="password"
+              value={password}
+              onChange={handlePasswordChange}
+              placeholder="Password"
+              required
+            />
+            <span className="fas fa-lock"></span>
+          </div>
+          <div className="forgot-pass">
+            <a href="#">Forgot Password?</a>
+          </div>
+          <button
+            className="my-4 w-full h-12 text-lg font-semibold bg-light-purple rounded-3xl shadow text-white focus:bg-dark-purple focus:shadow-inner"
+            onClick={(e) => handleSubmit(username, password, e)}
+          >
+            Sign in
+          </button>
+        </form>
+
 
 				<div className="sign-up">
 					Don&apos;t have an account?
