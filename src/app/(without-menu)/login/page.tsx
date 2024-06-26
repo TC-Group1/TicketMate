@@ -69,7 +69,10 @@ const LoginPage: FC = () => {
           <div className="forgot-pass">
             <a href="#">Forgot Password?</a>
           </div>
-          <button onClick={(e) => handleSubmit(username, password, e)}>
+          <button
+            className="my-4 w-full h-12 text-lg font-semibold bg-light-purple rounded-3xl shadow text-white focus:bg-dark-purple focus:shadow-inner"
+            onClick={(e) => handleSubmit(username, password, e)}
+          >
             Sign in
           </button>
         </form>

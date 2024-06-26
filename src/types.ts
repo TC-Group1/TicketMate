@@ -1,37 +1,37 @@
-import { CSSProperties, FC, SetStateAction, useRef } from "react";
+import { CSSProperties } from "react";
 
 export interface StyleSheet {
   [key: string]: CSSProperties;
 }
 
 export interface User {
-    id: string | undefined;
-    firstName: string | undefined;
-    lastName: string | undefined;
-    email: string | undefined;
-    avatar: string | undefined;
-    role: string | undefined;
-    phoneNumber: string | undefined;
+  id: string | undefined;
+  firstName: string | undefined;
+  lastName: string | undefined;
+  email: string | undefined;
+  avatar: string | undefined;
+  role: string | undefined;
+  phoneNumber: string | undefined;
 }
 
 export interface Ticket {
-    id: number | undefined;
-    title: string | undefined;
-    assignees: Array<string> | undefined;
-    priority: string | undefined;
-    dateCreated: string | undefined;
-    createdBy : string | undefined;
-    status: string | undefined;
-    lastModified: string | undefined;
-    description: string | undefined;
+  id: number | undefined;
+  title: string | undefined;
+  assignees: Array<string> | undefined;
+  priority: string | undefined;
+  dateCreated: string | undefined;
+  createdBy: string | undefined;
+  status: string | undefined;
+  lastModified: string | undefined;
+  description: string | undefined;
 }
 
 export interface Project {
-    id: number | undefined;
-    name: string | undefined;
-    team: Array<User> | undefined;
-    tickets: Array<Ticket> | undefined;
-    isActive: boolean | undefined;
+  id: number | undefined;
+  name: string | undefined;
+  team: Array<User> | undefined;
+  tickets: Array<Ticket> | undefined;
+  isActive: boolean | undefined;
 }
 
 export interface UserContextType {
@@ -70,3 +70,11 @@ export interface ModalContext {
   setIsOpen?: React.Dispatch<React.SetStateAction<boolean>> | undefined;
 }
 
+export interface Sprint {
+  title: string;
+  dateStart: string;
+  dateEnd: string;
+  tickets: Array<Ticket>;
+  project: Project;
+  points: number;
+}
