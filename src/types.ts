@@ -70,6 +70,7 @@ export interface ModalContext {
   setIsOpen?: React.Dispatch<React.SetStateAction<boolean>> | undefined;
 }
 
+
 export interface Sprint {
   title: string;
   dateStart: string;
@@ -78,3 +79,4 @@ export interface Sprint {
   project: Project;
   points: number;
 }
+
