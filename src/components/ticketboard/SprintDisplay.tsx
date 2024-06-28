@@ -5,7 +5,10 @@ import CreateTicketButton from "./CreateTicketButton";
 
 const SprintDisplay: FC<{ sprint: Sprint }> = ({ sprint }) => {
   return (
-    <div className="bg-input-back rounded p-2 w-full flex flex-col gap-4">
+    <div
+      className="bg-input-back rounded p-2 w-full flex flex-col gap-4"
+      key={sprint.title}
+    >
       <div className="flex items-center gap-4 w-full">
         <h3 className="text-lg">{sprint.title}</h3>
         <div className="text-xs flex gap-1">
@@ -20,7 +23,7 @@ const SprintDisplay: FC<{ sprint: Sprint }> = ({ sprint }) => {
       </div>
       <div>
         <TicketTable tickets={sprint.tickets} />
-        <CreateTicketButton sprint={sprint} />
+        <CreateTicketButton {...{ sprint }} />
       </div>
     </div>
   );
