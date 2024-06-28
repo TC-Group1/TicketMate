@@ -12,9 +12,10 @@ import { useModal } from "@/features/modal/ModalContextProvider";
 
 const LoginPage: FC = () => {
   const [username, setUsername] = useState<string>("");
-  const [password, setPassword] = useState("");
+  const [password, setPassword] = useState<string>("");
   const [userNotification, setUserNotification] = useState<string>("");
   const [error, setError] = useState<boolean>(false);
+  const showErrorRef = useRef<boolean>(false);
 
   const userContext: UserContext | null = useUserContext();
 
@@ -27,54 +28,70 @@ const LoginPage: FC = () => {
   const handleUsernameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setUsername(event.target.value);
     setError(false);
+    showErrorRef.current = false;
   };
 
   const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(event.target.value);
     setError(false);
+    showErrorRef.current = false;
   };
 
   function handleSubmit(
-    username: string,
-    password: string,
+    // username: string,
+    // password: string
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) {
+    event.preventDefault();
+
     if (username === "" || password === "") {
       setUserNotification("Please enter a username and password");
-      return;
+      setError(true);
+      showErrorRef.current = true;
     }
 
-    if (!username.includes("@")) {
-      const stripSpecialChars = username.replace(/[^+\d]+/g, "");
+    if (username && password) {
+      let usernameUpdate = username; // Necessary to remove special characters from phone number
 
-      if (!phoneNumberRegex.test(stripSpecialChars)) {
-        setError(true);
-        return;
+      if (!username.includes("@")) {
+        const stripSpecialChars = username.replace(/[^+\d]+/g, "");
+
+        if (!phoneNumberRegex.test(stripSpecialChars)) {
+          setError(true);
+          showErrorRef.current = true;
+          throw new Error("Invalid phone number input");
+        } else usernameUpdate = stripSpecialChars;
+      } else if (username.includes("@")) {
+        if (!emailRegex.test(username)) {
+          setError(true);
+          showErrorRef.current = true;
+          throw new Error("Invalid email input.");
+        }
       }
-    } else if (username.includes("@")) {
-      if (!emailRegex.test(username)) {
-        setError(true);
-        return;
-      }
+
+      userContext?.useLoginSubmission(usernameUpdate, password);
+      console.log("Trying to login");
     }
-
-    userContext?.useLoginSubmission(username, password, event);
   }
 
   return (
     <div className="login-form">
       <div className="content">
         <div className="text">Ticketmate Login</div>
-        <form action="#">
+        <form>
           <div className="field">
             {username.length > 0 && <label>Email or Phone</label>}
             <input
               type="text"
+              name="username"
               value={username}
               onChange={handleUsernameChange}
               placeholder="Email or Phone"
-              required
-              style={error ? { border: "1.5px solid red" } : {}}
+              style={
+                showErrorRef.current === true
+                  ? { border: "1.5px solid red" }
+                  : {}
+              }
             />
             <span className="fas fa-user"></span>
           </div>
@@ -82,16 +99,20 @@ const LoginPage: FC = () => {
             {password.length > 0 && <label>Password</label>}
             <input
               type="password"
+              name="password"
               value={password}
               onChange={handlePasswordChange}
               placeholder="Password"
-              style={error ? { border: "1.5px solid red" } : {}}
-              required
+              style={
+                showErrorRef.current === true
+                  ? { border: "1.5px solid red" }
+                  : {}
+              }
             />
             <span className="fas fa-lock"></span>
           </div>
           <div>
-            {error ? (
+            {showErrorRef.current === true ? (
               <p style={{ color: "red", textAlign: "left", fontSize: "small" }}>
                 Invalid username or password
               </p>
@@ -100,9 +121,7 @@ const LoginPage: FC = () => {
           <div className="forgot-pass">
             <a href="#">Forgot Password?</a>
           </div>
-          <button onClick={(e) => handleSubmit(username, password, e)}>
-            Sign in
-          </button>
+          <button onClick={handleSubmit}>Sign in</button>
         </form>
 
         <div className="sign-up">
