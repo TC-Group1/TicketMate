@@ -17,7 +17,12 @@ interface Props {
   children: ReactNode;
 }
 
-const modal: FC<Props> = ({ isOpen, setIsOpen, children }) => {
+const modal: FC<Props> = ({
+  isOpen,
+  setIsOpen,
+  children,
+  closeButton = false,
+}) => {
   const dialogRef = useRef<HTMLDialogElement>(null);
 
   const onClose = () => {
@@ -37,14 +42,16 @@ const modal: FC<Props> = ({ isOpen, setIsOpen, children }) => {
           : undefined
       }
     >
-      <button
-        type="button"
-        title="close"
-        className="absolute top-2 right-2 h-fit w-fit"
-        onClick={onClose}
-      >
-        <AiOutlineClose />
-      </button>
+      {closeButton ? (
+        <button
+          type="button"
+          title="close"
+          className="absolute top-2 right-2 h-fit w-fit"
+          onClick={onClose}
+        >
+          <AiOutlineClose />
+        </button>
+      ) : null}
       {children}
     </dialog>
   );
