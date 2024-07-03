@@ -1,6 +1,7 @@
 import { Ticket } from "@/types";
 import { FC } from "react";
 import CardLabel from "./CardLabel";
+import DetailsCardButton from "./DetailsCardButton";
 
 interface Props {
   ticket: Ticket;
@@ -35,15 +36,15 @@ const DetailsCard: FC<Props> = ({ ticket }) => {
           <CardLabel>Created:</CardLabel>
           <p>{ticket.dateCreated}</p>
           <CardLabel>Modified:</CardLabel>
-          <p>{ticket.lastModified}</p>npm
+          <p>{ticket.lastModified}</p>
           <CardLabel>Created By:</CardLabel>
           <p>{ticket.createdBy}</p>
         </div>
       </div>
       {/*↓↓ buttons div ↓↓*/}
-      <div className="flex justify-end h-20 gap-4">
-        <button type="button">Close</button>
-        <button type="button">Edit</button>
+      <div className="flex justify-end h-20 gap-4 items-center">
+        <DetailsCardButton className="bg-input-back">Close</DetailsCardButton>
+        <DetailsCardButton className="bg-light-purple text-white">Edit</DetailsCardButton>
       </div>
     </div>
   );

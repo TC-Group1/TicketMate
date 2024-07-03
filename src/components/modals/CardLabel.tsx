@@ -5,11 +5,10 @@ const CardLabel: FC<ComponentPropsWithoutRef<"p">> = ({
   className,
   ...rest
 }) => {
+  const styles = "text-lg font-semibold";
+
   return (
-    <p
-      {...rest}
-      className={className ? "text-lg font-semibold" + className : className}
-    >
+    <p {...rest} className={className ? styles + " " + className : styles}>
       {children}
     </p>
   );
