@@ -183,10 +183,6 @@ body {
     margin: 5px 0;
     line-height: 1rem;
   }
-
-  dialog {
-    position: fixed;
-  }
 }
 
 @media screen and (max-width: 500px) {
@@ -205,18 +201,5 @@ body {
   #registration-form {
     width: "100vw";
     height: "100vh";
-  }
-
-  dialog {
-    backdrop-filter: blur(50px);
-    min-height: 100vh;
-    position: fixed; /* Modal not covering screen when scrolled down */
-  }
-}
-
-@media screen and (max-width: 375px) {
-  dialog {
-    display: grid;
-    place-items: center;
   }
 }
