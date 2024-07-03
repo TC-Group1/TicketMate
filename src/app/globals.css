@@ -144,19 +144,6 @@ body {
 }
 /*End of login form styling*/
 
-/* Start of modal styling */
-
-dialog {
-  /* position: fixed; */
-  inset: 0;
-  width: 100dvw;
-  height: 100svh;
-  display: grid;
-  place-items: center;
-  backdrop-filter: blur(5px);
-  background: rgba(255, 255, 255, 0.7);
-}
-
 /* Start of Registration Div Styling */
 
 @media screen and (min-width: 500px) {

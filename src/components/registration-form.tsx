@@ -1,4 +1,4 @@
-import React, { useState, useRef, FC } from "react";
+import React, { useState, useRef, FC, Dispatch, SetStateAction } from "react";
 import { RegistrationFormData } from "../types";
 import Registration from "@/hooks/auth/register";
 
@@ -7,7 +7,11 @@ const marginTop = {
   marginTop: "20px",
 };
 
-const RegistrationForm: FC = () => {
+interface Props {
+  setIsOpen: Dispatch<SetStateAction<boolean>>;
+}
+
+const RegistrationForm: FC<Props> = ({ setIsOpen }) => {
   const [formData, setFormData] = useState<RegistrationFormData>({
     email: "",
     firstName: "",
@@ -138,6 +142,7 @@ const RegistrationForm: FC = () => {
     ) {
       try {
         await register.mutateAsync(formData); // Does this value need to be returned?
+        setIsOpen(false);
       } catch (error) {
         console.error("Error registering new user: ", error);
       }

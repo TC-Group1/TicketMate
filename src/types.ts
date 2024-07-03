@@ -59,18 +59,6 @@ export interface RegistrationFormData {
   password: string;
 }
 
-// Interface for modal
-// I would like for content to be a react element
-// When do I use type vs interface
-export interface ModalContext {
-  form?: any | null;
-  isOpen?: boolean;
-  openModal?: (e: React.MouseEvent<HTMLButtonElement>) => void;
-  closeModal?: (e: React.MouseEvent<HTMLButtonElement>) => void;
-  setIsOpen?: React.Dispatch<React.SetStateAction<boolean>> | undefined;
-}
-
-
 export interface Sprint {
   title: string;
   dateStart: string;
