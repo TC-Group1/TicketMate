@@ -5,12 +5,13 @@ const DetailsCardButton: FC<ComponentPropsWithoutRef<"button">> = ({
   children,
   ...rest
 }) => {
-  const styles = "h-fit py-2 px-16 rounded";
+  const styles = "h-fit py-1 px-16 rounded-md text-sm";
 
   return (
     <button
       type="button"
       className={className ? styles + " " + className : styles}
+      {...rest}
     >
       {children}
     </button>

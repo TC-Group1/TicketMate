@@ -3,7 +3,7 @@
 import { Ticket } from "@/types";
 import { FC, useState } from "react";
 import Modal from "@/components/modals/modal";
-import DetailsCard from "../modals/DetailsCard";
+import DetailsCard from "../modals/DetailsCard/DetailsCard";
 
 const TicketTableRow: FC<{ ticket: Ticket }> = ({ ticket }) => {
   const [detailsOpen, setDetailsOpen] = useState<boolean>(false);
@@ -33,7 +33,7 @@ const TicketTableRow: FC<{ ticket: Ticket }> = ({ ticket }) => {
         isOpen={detailsOpen}
         setIsOpen={setDetailsOpen}
         closeButton
-        children={<DetailsCard {...{ ticket }} />}
+        children={<DetailsCard ticket={ticket} setIsOpen={setDetailsOpen} />}
       />
     </>
   );
