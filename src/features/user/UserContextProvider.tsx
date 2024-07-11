@@ -4,7 +4,6 @@ import { createContext, useState, useContext } from 'react';
 import { User, UserContextType } from '../../types';
 import authentication from '../../hooks/auth/useAuthentication';
 
-
 const UserContext = createContext<UserContextType | null>(null);
 
 export const UserContextProvider = ({ children } : any) => {
@@ -48,16 +47,17 @@ export const UserContextProvider = ({ children } : any) => {
 
 
  return (
+
     <UserContext.Provider value={providerProps}>
-        {children}
+      {children}
     </UserContext.Provider>
- )
-}
+  );
+};
 
 export function useUserContext() {
-    const context = useContext(UserContext);
-    if (context === undefined) {
-      throw new Error('useUserContext must be used within a UserContextProvider');
-    }
-    return context;
+  const context = useContext(UserContext);
+  if (context === undefined) {
+    throw new Error("useUserContext must be used within a UserContextProvider");
   }
+  return context;
+}

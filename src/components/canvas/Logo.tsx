@@ -1,3 +1,4 @@
+
 import { FC, useEffect, useRef } from "react";
 import { useThree, Canvas } from "react-three-fiber";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
@@ -5,6 +6,7 @@ import { Group, Mesh, DirectionalLight } from "three";
 // import { OrbitControls } from '@react-three/drei';
 
 const Logo: FC = () => {
+
   const { scene, camera } = useThree();
   const modelRef = useRef<Group>();
 
@@ -14,11 +16,13 @@ const Logo: FC = () => {
     loader.load(
       "/3d-models/logo.glb",
       (gltf) => {
+
         const model = gltf.scene as Group; // Cast to Group
         model.scale.set(1, 1, 1);
         model.position.set(-2, 1, 0);
         model.traverse((child) => {
           if ((child as Mesh).isMesh) {
+
             child.castShadow = true;
             child.receiveShadow = true;
           }
@@ -32,7 +36,9 @@ const Logo: FC = () => {
       }
     );
 
+
     const light = new DirectionalLight(0xffffff, 5);
+
     light.position.set(3, 3, 3);
     light.castShadow = true;
     scene.add(light);
@@ -51,6 +57,7 @@ const Logo: FC = () => {
 };
 
 const ThreeCanvasWithLogo = () => (
+
   <div className="max-h-14">
     <Canvas shadows camera={{ position: [0, 0, 5] }} className="block">
       <Logo />

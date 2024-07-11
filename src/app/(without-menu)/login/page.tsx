@@ -10,45 +10,80 @@ import RegistrationForm from "../../../components/registration-form";
 
 const LoginPage: FC = () => {
   const [username, setUsername] = useState<string>("");
-  const [password, setPassword] = useState("");
+  const [password, setPassword] = useState<string>("");
   const [userNotification, setUserNotification] = useState<string>("");
+
   const [registrationModalOpen, setRegistrationModalOpen] = useState(false);
 
   const userContext: UserContext | null = useUserContext();
 
   const handleUsernameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setUsername(event.target.value);
+    setError(false);
+    showErrorRef.current = false;
   };
 
   const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(event.target.value);
+    setError(false);
+    showErrorRef.current = false;
   };
 
   function handleSubmit(
-    username: string,
-    password: string,
+    // username: string,
+    // password: string
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) {
+    event.preventDefault();
+
     if (username === "" || password === "") {
       setUserNotification("Please enter a username and password");
-      return;
+      setError(true);
+      showErrorRef.current = true;
     }
-    userContext?.useLoginSubmission(username, password, event);
+
+    if (username && password) {
+      let usernameUpdate = username; // Necessary to remove special characters from phone number
+
+      if (!username.includes("@")) {
+        const stripSpecialChars = username.replace(/[^+\d]+/g, "");
+
+        if (!phoneNumberRegex.test(stripSpecialChars)) {
+          setError(true);
+          showErrorRef.current = true;
+          throw new Error("Invalid phone number input");
+        } else usernameUpdate = stripSpecialChars;
+      } else if (username.includes("@")) {
+        if (!emailRegex.test(username)) {
+          setError(true);
+          showErrorRef.current = true;
+          throw new Error("Invalid email input.");
+        }
+      }
+
+      userContext?.useLoginSubmission(usernameUpdate, password);
+      console.log("Trying to login");
+    }
   }
 
   return (
     <div className="login-form">
       <div className="content">
         <div className="text">Ticketmate Login</div>
-        <form action="#">
+        <form>
           <div className="field">
             {username.length > 0 && <label>Email or Phone</label>}
             <input
               type="text"
+              name="username"
               value={username}
               onChange={handleUsernameChange}
               placeholder="Email or Phone"
-              required
+              style={
+                showErrorRef.current === true
+                  ? { border: "1.5px solid red" }
+                  : {}
+              }
             />
             <span className="fas fa-user"></span>
           </div>
@@ -56,12 +91,24 @@ const LoginPage: FC = () => {
             {password.length > 0 && <label>Password</label>}
             <input
               type="password"
+              name="password"
               value={password}
               onChange={handlePasswordChange}
               placeholder="Password"
-              required
+              style={
+                showErrorRef.current === true
+                  ? { border: "1.5px solid red" }
+                  : {}
+              }
             />
             <span className="fas fa-lock"></span>
+          </div>
+          <div>
+            {showErrorRef.current === true ? (
+              <p style={{ color: "red", textAlign: "left", fontSize: "small" }}>
+                Invalid username or password
+              </p>
+            ) : null}
           </div>
           <div className="forgot-pass">
             <a href="#">Forgot Password?</a>

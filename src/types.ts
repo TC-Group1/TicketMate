@@ -45,8 +45,8 @@ export interface UserContextType {
   setIsLoading: React.Dispatch<React.SetStateAction<Boolean>>;
   submitLogin: (
     username: string,
-    password: string,
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+    password: string
+    //event: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => void;
 }
 
@@ -67,4 +67,3 @@ export interface Sprint {
   project: Project;
   points: number;
 }
-

@@ -1,6 +1,8 @@
 import React, { useState, useRef, FC, Dispatch, SetStateAction } from "react";
 import { RegistrationFormData } from "../types";
 import Registration from "@/hooks/auth/register";
+import ThreeCanvasWithLogo, { Logo } from "./canvas/Logo";
+import { Canvas } from "react-three-fiber";
 
 // margin top input field
 const marginTop = {
@@ -167,6 +169,7 @@ const RegistrationForm: FC<Props> = ({ setIsOpen }) => {
         TicketMate <br />
         Registration
       </h1>
+
       <form
         onSubmit={handleFormSubmission}
         name="registration-form"
