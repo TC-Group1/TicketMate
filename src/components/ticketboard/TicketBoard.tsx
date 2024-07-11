@@ -1,103 +1,30 @@
-import { FC } from 'react';
-import { Ticket } from '@/types';
-import styles from './TicketBoard.module.css';
+import { FC } from "react";
+import { Sprint, Ticket } from "@/types";
+import TicketTable from "./TicketTable";
+import SprintDisplay from "./SprintDisplay";
+import { sprints } from "@/mockData.json";
+import CreateTicketButton from "./CreateTicketButton";
 
 const TicketBoard: FC<{ tickets: Ticket[] }> = ({ tickets }) => {
-
-    
   return (
-        <div className={styles.dashboardLeft}>
-        <div className={styles.headerFlex}>
-        <h2 className={styles.h2}>My Tickets</h2>
-        <button className={styles.button}>New Ticket</button>
-        </div>
-        <div className={styles.tableContainer}>
-        <h3 className={styles.lightText}>Tickets from xyz project (still need to implement project grab)</h3>
-      <table className={styles.tableContainer + " " + "border-separate"}>
-        <thead className="text-left">
-            <th>
-                Feature
-            </th>
-            <th>
-                Assigned to
-            </th>
-            <th>
-                Priority
-            </th>
-            <th>
-                Date Created
-            </th>
-            <th>
-                Status
-            </th>
-            <th>
-               Created By
-            </th>
-            <th>
-                Modified
-            </th>
-        </thead>
-        <tbody className="text-left">
-            {tickets.map((ticket: any, index: number) => (
-                <tr key={index}>
-                    <td>{ticket.title}</td>
-                    <td>{ticket.assignees[0]}</td>
-                    <td>{ticket.priority}</td>
-                    <td>{ticket.dateCreated}</td>
-                    <td>
-                     <select defaultValue={ticket.status}>
-                        <option value="New">New</option>
-                        <option value="In Progress">In Progress</option>
-                        <option value="Completed">Complete</option>
-                    </select>
-                    
-                    </td>
-                    <td>{ticket.createdBy}</td>
-                    <td style={{width: '90px'}}>{ticket.lastModified}</td>
-                </tr>
-            ))}
-            <tr>
-                <td>
-                    <input className="text-left" type="text" placeholder="Add New Feature" />
-                </td>
-                <td>
-                    <select dir="ltr" style={{width:'80px'}}>
-                        {/* need to implement entire usercontext object import so this can be a map of project users */}
-                        <option value="High">John Doe</option>
-                        <option value="Medium">Susan Anthony</option>
-                        <option value="Low">Jane Doe</option>
-                    </select>
-                </td>
-                <td>
-                    <select dir="ltr">
-                        <option value="High">High</option>
-                        <option value="Medium">Medium</option>
-                        <option value="Low">Low</option>
-                    </select>
-                </td>
-                <td>
-                    <input className="text-left" type="date" />
-                </td>
-                <td>
-                    <select className="text-left">
-                        <option value="In Progress">In Progress</option>
-                        <option value="Pending">Pending</option>
-                        <option value="Complete">Complete</option>
-                    </select>
-                </td>
-                <td>
-                    <input type="text" placeholder="Created By" style={{width:'80px'}} />
-                </td>
-                <td style={{width: '80px'}}>
-                    <input type="text" disabled/>
-                </td>
-            </tr>
-        </tbody>
-      </table>
+    <div className="flex flex-col gap-4 items-center pr-5 w-full border-r-[1px] border-light-border">
+      <div className="flex justify-between w-full pr-5">
+        <h2 className="text-sm font-semibold">My Tickets</h2>
+        <button className="flex items-center justify-center w-28 h-8 text-xs bg-[#FBFCFE] border-[.5px] border-solid border-[#DDE4F0] shadow-none rounded text-light-purple">
+          New Sprint
+        </button>
       </div>
+      {sprints &&
+        sprints.map((sprint: Sprint) => <SprintDisplay {...{ sprint }} />)}
+      <div className="border-spacing-x-3 p-2 w-full">
+        <h3 className="text-light-text text-xs">
+          Tickets from xyz project (still need to implement project grab)
+        </h3>
+        <TicketTable {...{ tickets }} />
+        <CreateTicketButton />
       </div>
+    </div>
   );
 };
 
 export default TicketBoard;
-

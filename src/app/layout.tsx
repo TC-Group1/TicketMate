@@ -3,7 +3,6 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { UserContextProvider } from "../features/user/UserContextProvider";
 import { ReactQueryClientProvider } from "@/features/user/query/QueryClientProvider";
-import { ModalContextProvider } from "@/features/modal/ModalContextProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,11 +19,9 @@ export default function RootLayout({
   return (
     <ReactQueryClientProvider>
       <UserContextProvider>
-        <ModalContextProvider>
-          <html lang="en">
-            <body className={inter.className}>{children}</body>
-          </html>
-        </ModalContextProvider>
+        <html lang="en">
+          <body className={inter.className}>{children}</body>
+        </html>
       </UserContextProvider>
     </ReactQueryClientProvider>
   );

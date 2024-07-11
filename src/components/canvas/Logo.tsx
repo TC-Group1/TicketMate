@@ -1,12 +1,14 @@
-import React, { useEffect, useRef } from "react";
+
+import { FC, useEffect, useRef } from "react";
 import { useThree, Canvas } from "react-three-fiber";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
-import * as THREE from "three";
+import { Group, Mesh, DirectionalLight } from "three";
 // import { OrbitControls } from '@react-three/drei';
 
-export const Logo = () => {
+const Logo: FC = () => {
+
   const { scene, camera } = useThree();
-  const modelRef = useRef<THREE.Group>();
+  const modelRef = useRef<Group>();
 
   // Load the GLTF model
   useEffect(() => {
@@ -14,11 +16,13 @@ export const Logo = () => {
     loader.load(
       "/3d-models/logo.glb",
       (gltf) => {
-        const model = gltf.scene as THREE.Group; // Cast to THREE.Group
+
+        const model = gltf.scene as Group; // Cast to Group
         model.scale.set(1, 1, 1);
         model.position.set(-2, 1, 0);
         model.traverse((child) => {
-          if ((child as THREE.Mesh).isMesh) {
+          if ((child as Mesh).isMesh) {
+
             child.castShadow = true;
             child.receiveShadow = true;
           }
@@ -32,7 +36,9 @@ export const Logo = () => {
       }
     );
 
-    const light = new THREE.DirectionalLight(0xffffff, 5);
+
+    const light = new DirectionalLight(0xffffff, 5);
+
     light.position.set(3, 3, 3);
     light.castShadow = true;
     scene.add(light);
@@ -51,12 +57,9 @@ export const Logo = () => {
 };
 
 const ThreeCanvasWithLogo = () => (
-  <div className="relative w-50">
-    <Canvas
-      className="absolute top-0 left-0 w-full h-full"
-      shadows
-      camera={{ position: [0, 0, 5] }}
-    >
+
+  <div className="max-h-14">
+    <Canvas shadows camera={{ position: [0, 0, 5] }} className="block">
       <Logo />
       {/* <OrbitControls /> */}
     </Canvas>

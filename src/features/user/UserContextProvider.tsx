@@ -1,53 +1,53 @@
 "use client";
 
-import { createContext, useState, useContext } from "react";
-import type { User, UserContext } from "../../types"; // added 'type' to import statement
-import useAuthentication from "../../hooks/auth/useAuthentication";
+import { createContext, useState, useContext } from 'react';
+import { User, UserContextType } from '../../types';
+import authentication from '../../hooks/auth/useAuthentication';
 
-const UserContext = createContext<UserContext | null>(null);
+const UserContext = createContext<UserContextType | null>(null);
 
-export const UserContextProvider = ({ children }: any) => {
-  const [user, setUser] = useState<User | null>(null);
-  const [isLoading, setIsLoading] = useState<Boolean>(true);
-  const [error, setError] = useState<string | null>(null);
-  const [isAuthenticated, setIsAuthenticated] = useState<Boolean>(false);
+export const UserContextProvider = ({ children } : any) => {
+    const [user, setUser] = useState<User | null>(null);
+    const [isLoading, setIsLoading] = useState<Boolean>(true);
+    const [error, setError] = useState<string | null>(null);
+    const [isAuthenticated, setIsAuthenticated] = useState<Boolean>(false);
 
-  const useLoginSubmission = async (username: string, password: string) => {
-    // Removed below from props:
-    // event: React.MouseEvent<HTMLButtonElement, MouseEvent>
-    // event.preventDefault();
+    const submitLogin = async (username: string, password: string, event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        event.preventDefault();
+        try{
+          let userData = await authentication(username, password);
+          let user = userData.data;
 
-    try {
-      let userData = await useAuthentication(username, password);
-      let user = userData.data;
+          if(userData.error){
+            setIsAuthenticated(false);
+          } else {
+            setIsAuthenticated(true);
+          }
+          if(isAuthenticated){ 
+            setUser(user);
+          }
+          setIsLoading(userData.isPending);
+        }catch (error: any) {
+          setError(error.message);
+        }
+      };
 
-      if (userData.error) {
-        setIsAuthenticated(false);
-      } else {
-        setIsAuthenticated(true);
-      }
-      if (isAuthenticated) {
-        setUser(user);
-      }
-      setIsLoading(userData.isPending);
-    } catch (error: any) {
-      setError(error.message);
-    }
-  };
+    const providerProps = {
+        user,
+        setUser,
+        isAuthenticated,
+        setIsAuthenticated,
+        error,
+        setError,
+        isLoading,
+        setIsLoading,
+        submitLogin,
+    };
+  
 
-  const providerProps = {
-    user,
-    setUser,
-    isAuthenticated,
-    setIsAuthenticated,
-    error,
-    setError,
-    isLoading,
-    setIsLoading,
-    useLoginSubmission,
-  };
 
-  return (
+ return (
+
     <UserContext.Provider value={providerProps}>
       {children}
     </UserContext.Provider>

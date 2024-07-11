@@ -1,29 +1,21 @@
 "use client";
 
-import React, { useState, FC, useRef, useContext } from "react";
+import React, { useState, FC } from "react";
 import { useUserContext } from "../../../features/user/UserContextProvider";
-import { useRouter } from "next/router";
 import { StyleSheet, UserContext } from "../../../types";
 
 // Modal additions
-import Modal from "../../../components/modal";
+import Modal from "@/components/modals/modal";
 import RegistrationForm from "../../../components/registration-form";
-import { useModal } from "@/features/modal/ModalContextProvider";
 
 const LoginPage: FC = () => {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [userNotification, setUserNotification] = useState<string>("");
-  const [error, setError] = useState<boolean>(false);
-  const showErrorRef = useRef<boolean>(false);
+
+  const [registrationModalOpen, setRegistrationModalOpen] = useState(false);
 
   const userContext: UserContext | null = useUserContext();
-
-  const { openModal, isOpen } = useModal(); // From Modal Context
-
-  // Email and Phone Number REGEX
-  const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
-  const phoneNumberRegex = /^[2-9]{1}[0-9]{2}[2-9]{1}[0-9]{2}[0-9]{4}$/;
 
   const handleUsernameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setUsername(event.target.value);
@@ -121,15 +113,27 @@ const LoginPage: FC = () => {
           <div className="forgot-pass">
             <a href="#">Forgot Password?</a>
           </div>
-          <button onClick={handleSubmit}>Sign in</button>
+          <button
+            className="my-4 w-full h-12 text-lg font-semibold bg-light-purple rounded-3xl shadow text-white focus:bg-dark-purple focus:shadow-inner"
+            onClick={(e) => handleSubmit(username, password, e)}
+          >
+            Sign in
+          </button>
         </form>
 
         <div className="sign-up">
           Don&apos;t have an account?
-          <button id="signup-btn" onClick={openModal}>
+          <button
+            id="signup-btn"
+            onClick={() => setRegistrationModalOpen(true)}
+          >
             Sign up now
           </button>
-          {isOpen && <Modal form={<RegistrationForm />} />}
+          <Modal
+            children={<RegistrationForm setIsOpen={setRegistrationModalOpen} />}
+            isOpen={registrationModalOpen}
+            setIsOpen={setRegistrationModalOpen}
+          />
         </div>
 
         {userNotification ? (
