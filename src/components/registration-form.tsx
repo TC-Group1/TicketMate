@@ -4,14 +4,17 @@ import Registration from "@/hooks/auth/register";
 import ThreeCanvasWithLogo, { Logo } from "./canvas/Logo";
 import { Canvas } from "react-three-fiber";
 
-// margin top input field
-const marginTop = {
-  marginTop: "20px",
-};
-
 interface Props {
   setIsOpen: Dispatch<SetStateAction<boolean>>;
 }
+
+
+  // REGEX FOR EMAIL, PASSWORD, PHONE NUMBERS
+  export const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
+  export const passwordRegex =
+    /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
+  export const phoneNumberRegex = /^[2-9]{1}[0-9]{2}[2-9]{1}[0-9]{2}[0-9]{4}$/;
+
 
 const RegistrationForm: FC<Props> = ({ setIsOpen }) => {
   const [formData, setFormData] = useState<RegistrationFormData>({
@@ -65,12 +68,6 @@ const RegistrationForm: FC<Props> = ({ setIsOpen }) => {
       ? setConfirmPassword(e.target.value)
       : setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-
-  // REGEX FOR EMAIL, PASSWORD, PHONE NUMBERS
-  const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
-  const passwordRegex =
-    /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
-  const phoneNumberRegex = /^[2-9]{1}[0-9]{2}[2-9]{1}[0-9]{2}[0-9]{4}$/;
 
   // ERROR HANDLING FUNCTIONS
   // Input fields
@@ -185,7 +182,7 @@ const RegistrationForm: FC<Props> = ({ setIsOpen }) => {
           )}
           <input
             id="email"
-            className="registration-input"
+            className={`registration-input ${emailError ? "border border-red-500" : ""}`}
             aria-labelledby="email-label"
             name="email"
             type="text" // Changed from type 'email' for custom error handling.
@@ -193,7 +190,6 @@ const RegistrationForm: FC<Props> = ({ setIsOpen }) => {
             autoFocus
             value={formData.email}
             onChange={handleInputFieldChange}
-            style={emailError ? { border: "1.5px solid red" } : {}}
             required
           />
           <br />
