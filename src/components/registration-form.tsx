@@ -1,384 +1,367 @@
-import React, { useState, useRef, FC, Dispatch, SetStateAction } from "react";
-import { RegistrationFormData } from "../types";
-import Registration from "@/hooks/auth/register";
-import ThreeCanvasWithLogo, { Logo } from "./canvas/Logo";
-import { Canvas } from "react-three-fiber";
+import React, { useState, useRef, FC, Dispatch, SetStateAction } from "react"
+import { RegistrationFormData } from "../types"
+import Registration from "@/hooks/auth/register"
+import ThreeCanvasWithLogo, { Logo } from "./canvas/Logo"
+import { Canvas } from "react-three-fiber"
 
 interface Props {
-  setIsOpen: Dispatch<SetStateAction<boolean>>;
+	setIsOpen: Dispatch<SetStateAction<boolean>>
 }
 
-
-  // REGEX FOR EMAIL, PASSWORD, PHONE NUMBERS
-  export const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
-  export const passwordRegex =
-    /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
-  export const phoneNumberRegex = /^[2-9]{1}[0-9]{2}[2-9]{1}[0-9]{2}[0-9]{4}$/;
-
+// REGEX FOR EMAIL, PASSWORD, PHONE NUMBERS
+export const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i
+export const passwordRegex =
+	/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/
+export const phoneNumberRegex = /^[2-9]{1}[0-9]{2}[2-9]{1}[0-9]{2}[0-9]{4}$/
 
 const RegistrationForm: FC<Props> = ({ setIsOpen }) => {
-  const [formData, setFormData] = useState<RegistrationFormData>({
-    email: "",
-    firstName: "",
-    lastName: "",
-    phoneNumber: "",
-    password: "",
-  });
-  const [confirmPassword, setConfirmPassword] = useState<string>("");
+	const [formData, setFormData] = useState<RegistrationFormData>({
+		email: "",
+		firstName: "",
+		lastName: "",
+		phoneNumber: "",
+		password: "",
+	})
+	const [confirmPassword, setConfirmPassword] = useState<string>("")
 
-  // State and State References for error handling
+	// State and State References for error handling
 
-  const [emailError, setEmailError] = useState<boolean>(false);
-  const emailErrorRef = useRef<boolean>(false);
-  const [passwordError, setPasswordError] = useState<boolean>(false);
-  const passwordErrorRef = useRef<boolean>(false);
-  const [confirmPasswordError, setConfirmPasswordError] =
-    useState<boolean>(false);
-  const confirmPasswordErrorRef = useRef<boolean>(false);
-  const [showPasswordRequirements, setShowPasswordRequirements] =
-    useState<boolean>(false);
-  const [passwordReqError, setPasswordReqError] = useState<boolean>(false);
-  const [phoneNumberError, setPhoneNumberError] = useState<boolean>(false);
-  const phoneNumberErrorRef = useRef<boolean>(false);
+	const [emailError, setEmailError] = useState<boolean>(false)
+	const emailErrorRef = useRef<boolean>(false)
+	const [passwordError, setPasswordError] = useState<boolean>(false)
+	const passwordErrorRef = useRef<boolean>(false)
+	const [confirmPasswordError, setConfirmPasswordError] =
+		useState<boolean>(false)
+	const confirmPasswordErrorRef = useRef<boolean>(false)
+	const [showPasswordRequirements, setShowPasswordRequirements] =
+		useState<boolean>(false)
+	const [passwordReqError, setPasswordReqError] = useState<boolean>(false)
+	const [phoneNumberError, setPhoneNumberError] = useState<boolean>(false)
+	const phoneNumberErrorRef = useRef<boolean>(false)
 
-  const { register } = Registration();
+	const { register } = Registration()
 
-  const handleInputFieldChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault();
+	const handleInputFieldChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		e.preventDefault()
 
-    if (e.target.name === "email") {
-      setEmailError(false);
-      emailErrorRef.current = false;
-    }
-    if (e.target.name === "phoneNumber") {
-      setPhoneNumberError(false);
-      phoneNumberErrorRef.current = false;
-    }
-    if (e.target.name === "password") {
-      setPasswordError(false);
-      passwordErrorRef.current = false;
-    }
-    if (e.target.name === "confirmPassword") {
-      setConfirmPasswordError(false);
-      confirmPasswordErrorRef.current = false;
-      setConfirmPassword(e.target.value);
-    }
+		if (e.target.name === "email") {
+			setEmailError(false)
+			emailErrorRef.current = false
+		}
+		if (e.target.name === "phoneNumber") {
+			setPhoneNumberError(false)
+			phoneNumberErrorRef.current = false
+		}
+		if (e.target.name === "password") {
+			setPasswordError(false)
+			passwordErrorRef.current = false
+		}
+		if (e.target.name === "confirmPassword") {
+			setConfirmPasswordError(false)
+			confirmPasswordErrorRef.current = false
+			setConfirmPassword(e.target.value)
+		}
 
-    e.target.name === "confirmPassword"
-      ? setConfirmPassword(e.target.value)
-      : setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+		e.target.name === "confirmPassword"
+			? setConfirmPassword(e.target.value)
+			: setFormData({ ...formData, [e.target.name]: e.target.value })
+	}
 
-  // ERROR HANDLING FUNCTIONS
-  // Input fields
+	// ERROR HANDLING FUNCTIONS
+	// Input fields
 
-  const emailErrorHandling = () => {
-    setEmailError(true);
-    emailErrorRef.current = true;
-  };
+	const emailErrorHandling = () => {
+		setEmailError(true)
+		emailErrorRef.current = true
+	}
 
-  const phoneNumberErrorHandling = (number: string) => {
-    const stripSpecialChars = number.replace(/[^+\d]+/g, ""); // Gives user the ability to input their phone number in whatever format
+	const phoneNumberErrorHandling = (number: string) => {
+		if (number !== "") {
+			const stripSpecialChars = number.replace(/[^+\d]+/g, "") // Gives user the ability to input their phone number in whatever format
 
-    if (!phoneNumberRegex.test(stripSpecialChars)) {
-      setPhoneNumberError(true);
-      phoneNumberErrorRef.current = true;
-    }
-  };
+			if (number !== "" && !phoneNumberRegex.test(stripSpecialChars)) {
+				setPhoneNumberError(true)
+				phoneNumberErrorRef.current = true
+			}
+		}
+	}
 
-  const passwordErrorHandling = () => {
-    setShowPasswordRequirements(true);
-    setPasswordError(true);
-    passwordErrorRef.current = true;
-    setConfirmPasswordError(true);
-  };
+	const passwordErrorHandling = () => {
+		setShowPasswordRequirements(true)
+		setPasswordError(true)
+		passwordErrorRef.current = true
+		setConfirmPasswordError(true)
+	}
 
-  // FORM VALIDATION FUNCTION
+	// FORM VALIDATION FUNCTION
 
-  const validateFormInputs = (
-    email: string,
-    phoneNumber: string,
-    password: string,
-    confirmPassword: string
-  ) => {
-    // Input field checks
+	const validateFormInputs = (
+		email: string,
+		phoneNumber: string,
+		password: string,
+		confirmPassword: string
+	) => {
+		// Input field checks
 
-    if (!emailRegex.test(email)) emailErrorHandling();
-    if (phoneNumber !== null) phoneNumberErrorHandling(phoneNumber);
-    if (password !== confirmPassword) {
-      setConfirmPasswordError(true);
-      confirmPasswordErrorRef.current === true;
-    }
-    if (!passwordRegex.test(password)) passwordErrorHandling();
-  };
+		if (!emailRegex.test(email)) emailErrorHandling()
+		if (phoneNumber !== null) phoneNumberErrorHandling(phoneNumber)
+		if (password !== confirmPassword) {
+			setConfirmPasswordError(true)
+			confirmPasswordErrorRef.current = true
+		}
+		if (!passwordRegex.test(password)) passwordErrorHandling()
+	}
 
-  // FORM SUBMISSION FUNCTION
+	// FORM SUBMISSION FUNCTION
 
-  const handleFormSubmission = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+	const handleFormSubmission = async (e: React.FormEvent<HTMLFormElement>) => {
+		e.preventDefault()
 
-    validateFormInputs(
-      formData.email,
-      formData.phoneNumber,
-      formData.password,
-      confirmPassword
-    );
+		validateFormInputs(
+			formData.email,
+			formData.phoneNumber,
+			formData.password,
+			confirmPassword
+		)
 
-    // Error or query handling
-    if (
-      emailErrorRef.current === true ||
-      passwordErrorRef.current === true ||
-      confirmPasswordErrorRef.current === true ||
-      phoneNumberErrorRef.current === true
-    ) {
-      console.error("Invalid input fields");
-      throw new Error("Invalid input fields");
-    } else if (
-      emailErrorRef.current === false &&
-      passwordErrorRef.current === false &&
-      confirmPasswordErrorRef.current === false &&
-      phoneNumberErrorRef.current === false
-    ) {
-      try {
-        await register.mutateAsync(formData); // Does this value need to be returned?
-        setIsOpen(false);
-      } catch (error) {
-        console.error("Error registering new user: ", error);
-      }
-    }
-  };
+		// Error or query handling
+		if (
+			emailErrorRef.current === true ||
+			passwordErrorRef.current === true ||
+			confirmPasswordErrorRef.current === true ||
+			phoneNumberErrorRef.current === true
+		) {
+			console.error("Invalid input fields")
+			throw new Error("Invalid input fields")
+		} else if (
+			emailErrorRef.current === false &&
+			passwordErrorRef.current === false &&
+			confirmPasswordErrorRef.current === false &&
+			phoneNumberErrorRef.current === false
+		) {
+			try {
+				await register.mutateAsync(formData) // Does this value need to be returned?
+				setIsOpen(false)
+			} catch (error) {
+				console.error("Error registering new user: ", error)
+			}
+		}
+	}
 
-  return (
-    <div
-      role="form"
-      id="registration-form"
-      aria-label="Registration Information"
-      className="content"
-    >
-      <h1
-        id="TicketMate-registration-form"
-        className="text"
-        role="heading"
-        aria-level={1}
-        style={{ marginBottom: "20px", textAlign: "center" }}
-        aria-label="TicketMate Registration"
-      >
-        TicketMate <br />
-        Registration
-      </h1>
+	return (
+		<div
+			role="form"
+			id="registration-form"
+			aria-label="Registration Information"
+			className="p-8 bg-gray-200 rounded-lg shadow-md"
+		>
+			<h1
+				id="TicketMate-registration-form"
+				className="text-2xl font-bold mb-4 text-center"
+				role="heading"
+				aria-level={1}
+				aria-label="TicketMate Registration"
+			>
+				TicketMate <br />
+				Registration
+			</h1>
 
-      <form
-        onSubmit={handleFormSubmission}
-        name="registration-form"
-        method="dialog"
-        className="opacity-100"
-        aria-labelledby="TicketMate-registration-form"
-      >
-        <div className="field">
-          {formData.email.length > 0 && (
-            <label className="label" htmlFor="email" id="email-label">
-              Email
-            </label>
-          )}
-          <input
-            id="email"
-            className={`registration-input ${emailError ? "border border-red-500" : ""}`}
-            aria-labelledby="email-label"
-            name="email"
-            type="text" // Changed from type 'email' for custom error handling.
-            placeholder="Email"
-            autoFocus
-            value={formData.email}
-            onChange={handleInputFieldChange}
-            required
-          />
-          <br />
-        </div>
-        {emailError ? (
-          <p
-            style={{
-              textAlign: "left",
-              paddingBottom: "15px",
-              paddingLeft: "40px",
-              fontSize: "13px",
-              color: "red",
-            }}
-          >
-            Email is invalid
-          </p>
-        ) : null}
+			<form
+				onSubmit={handleFormSubmission}
+				name="registration-form"
+				method="dialog"
+				className="opacity-100"
+				aria-labelledby="TicketMate-registration-form"
+			>
+				<div className="field">
+					{formData.email.length > 0 && (
+						<label className="text-sm font-semibold" htmlFor="email">
+							Email
+						</label>
+					)}
+					<input
+						id="email"
+						className={`w-full px-3 py-2 mt-1 rounded-md ${
+							emailError ? "border border-red-500" : ""
+						}`}
+						aria-labelledby="email-label"
+						name="email"
+						type="email"
+						placeholder="Email"
+						autoFocus
+						value={formData.email}
+						onChange={handleInputFieldChange}
+						aria-invalid={emailError ? "true" : "false"}
+						aria-describedby={emailError ? "email-error" : undefined}
+						required
+					/>
+					{emailError && (
+						<p className="text-xs text-red-500 pt-1" id="email-error">
+							Email is invalid
+						</p>
+					)}
+					<br />
+				</div>
 
-        <div className="field">
-          {formData.firstName.length > 0 && (
-            <label className="label" htmlFor="first-name" id="first-name-label">
-              First Name
-            </label>
-          )}
+				<div className="mb-4">
+					{formData.firstName.length > 0 && (
+						<label className="text-sm font-semibold" htmlFor="first-name">
+							First Name
+						</label>
+					)}
 
-          <input
-            id="first-name"
-            className="registration-input"
-            aria-labelledby="first-name-label"
-            name="firstName"
-            type="text"
-            placeholder="First Name"
-            value={formData.firstName}
-            onChange={handleInputFieldChange}
-            required
-          />
-        </div>
+					<input
+						id="first-name"
+						className="w-full px-3 py-2 mt-1 rounded-md"
+						aria-labelledby="first-name-label"
+						name="firstName"
+						type="text"
+						placeholder="First Name"
+						value={formData.firstName}
+						onChange={handleInputFieldChange}
+						required
+					/>
+				</div>
 
-        <div className="field" style={marginTop}>
-          {formData.lastName.length > 0 && (
-            <label className="label" htmlFor="last-name" id="last-name-label">
-              Last Name
-            </label>
-          )}
-          <input
-            id="last-name"
-            className="registration-input"
-            aria-labelledby="last-name-label"
-            name="lastName"
-            type="text"
-            placeholder="Last Name"
-            value={formData.lastName}
-            onChange={handleInputFieldChange}
-            required
-          />
-        </div>
+				<div className="mb-4">
+					{formData.lastName.length > 0 && (
+						<label className="text-sm font-semibold" htmlFor="last-name">
+							Last Name
+						</label>
+					)}
+					<input
+						id="last-name"
+						className="w-full px-3 py-2 mt-1 rounded-md"
+						aria-labelledby="last-name-label"
+						name="lastName"
+						type="text"
+						placeholder="Last Name"
+						value={formData.lastName}
+						onChange={handleInputFieldChange}
+						required
+					/>
+				</div>
 
-        <div className="field" style={marginTop}>
-          {formData.phoneNumber.length > 0 && (
-            <label
-              className="label"
-              htmlFor="phone-number"
-              id="phone-number-label"
-            >
-              Phone Number
-            </label>
-          )}
-          <input
-            id="phone-number"
-            className="registration-input"
-            aria-labelledby="phone-number-label"
-            name="phoneNumber"
-            type="text"
-            placeholder="Phone Number"
-            maxLength={14}
-            value={formData.phoneNumber}
-            onChange={handleInputFieldChange}
-            style={phoneNumberError ? { border: "1px solid red" } : {}}
-          />
-        </div>
-        {showPasswordRequirements ? (
-          <div
-            style={{ padding: "10px 0 0", fontSize: "small", color: "gray" }}
-          >
-            <ul>
-              <li>*At least one uppercase letter</li>
-              <li>*At least one lowercase letter</li>
-              <li>*At least one digit</li>
-              <li>*At least one special character among #?!@$%^&*-</li>
-              <li>*A minimum length of 8 characters</li>
-            </ul>
-          </div>
-        ) : null}
-        <div className="field tooltip" style={marginTop}>
-          {formData.password.length > 0 && (
-            <label htmlFor="password" id="password-label">
-              Password
-            </label>
-          )}
-          <input
-            id="password"
-            className="registration-input"
-            aria-labelledby="password-label"
-            name="password"
-            type="password"
-            placeholder="Password"
-            minLength={8}
-            value={formData.password}
-            onChange={handleInputFieldChange}
-            style={passwordError ? { border: "1px solid red" } : {}}
-            required
-          />
-        </div>
-        <div
-          style={{
-            cursor: "pointer",
-            textAlign: "right",
-            fontSize: "small",
-            marginTop: "5px",
-          }}
-          onClick={() => setShowPasswordRequirements(!showPasswordRequirements)}
-        >
-          {showPasswordRequirements ? "Hide requirements" : "Show requirements"}
-        </div>
+				<div className="mb-4">
+					{formData.phoneNumber.length > 0 && (
+						<label className="text-sm font-semibold" htmlFor="phone-number">
+							Phone Number
+						</label>
+					)}
+					<input
+						id="phone-number"
+						className={`w-full px-3 py-2 mt-1 rounded-md ${
+							phoneNumberError ? "border border-red-500" : ""
+						}`}
+						aria-labelledby="phone-number-label"
+						name="phoneNumber"
+						type="text"
+						placeholder="Phone Number"
+						maxLength={14}
+						value={formData.phoneNumber}
+						onChange={handleInputFieldChange}
+					/>
+					{phoneNumberError && (
+						<p className="text-xs text-red-500 pt-1">
+							Phone number format is invalid
+						</p>
+					)}
+				</div>
+				{showPasswordRequirements && (
+					<div className="mb-4 text-xs text-gray-600">
+						<ul>
+							<li>*At least one uppercase letter</li>
+							<li>*At least one lowercase letter</li>
+							<li>*At least one digit</li>
+							<li>*At least one special character among #?!@$%^&*-</li>
+							<li>*A minimum length of 8 characters</li>
+						</ul>
+					</div>
+				)}
 
-        <div className="field" style={{ marginTop: "10px" }}>
-          {confirmPassword.length > 0 && (
-            <label
-              className="label"
-              htmlFor="confirm-password"
-              id="confirm-password-label"
-            >
-              Confirm Password
-            </label>
-          )}
-          <input
-            id="confirm-password"
-            className="registration-input"
-            aria-labelledby="confirm-password-label"
-            name="confirmPassword"
-            type="password"
-            placeholder="Confirm Password"
-            minLength={8}
-            value={confirmPassword}
-            onChange={handleInputFieldChange}
-            style={confirmPasswordError ? { border: "1.5px solid red" } : {}}
-            required
-          />
-        </div>
+				<div className="mb-4">
+					{formData.password.length > 0 && (
+						<label className="text-sm font-semibold" htmlFor="password">
+							Password
+						</label>
+					)}
+					<input
+						id="password"
+						className={`w-full px-3 py-2 mt-1 rounded-md focus:ring-2 ${
+							passwordError ? "border border-red-500" : ""
+						}`}
+						aria-labelledby="password-label"
+						name="password"
+						type="password"
+						placeholder="Password"
+						minLength={8}
+						value={formData.password}
+						onChange={handleInputFieldChange}
+						required
+					/>
+					{passwordError && (
+						<p className="text-xs text-red-500 pt-1">
+							Password does not meet requirements
+						</p>
+					)}
+				</div>
+				<div
+					onClick={() => setShowPasswordRequirements(!showPasswordRequirements)}
+				>
+					{showPasswordRequirements ? "Hide requirements" : "Show requirements"}
+				</div>
 
-        {confirmPasswordError ? (
-          <p
-            style={{
-              textAlign: "left",
-              paddingBottom: "15px",
-              paddingLeft: "40px",
-              fontSize: "13px",
-              color: "red",
-            }}
-          >
-            Password and Confirm Password do not match
-          </p>
-        ) : null}
-        {passwordReqError ? (
-          <p
-            style={{
-              textAlign: "left",
-              paddingBottom: "15px",
-              paddingLeft: "40px",
-              fontSize: "13px",
-              color: "red",
-            }}
-          >
-            Password does not meet requirements.
-          </p>
-        ) : null}
-        <br />
-        <button id="registration-button">Register</button>
-      </form>
-      <div
-        className="registration-text sign-up"
-        role="link"
-        aria-label="User Login Link"
-      >
-        Already have an account?
-        <a href="/login"> Login now</a>
-      </div>
-    </div>
-  );
-};
+				<div className="mb-4">
+					{confirmPassword.length > 0 && (
+						<label className="text-sm font-semibold" htmlFor="confirm-password">
+							Confirm Password
+						</label>
+					)}
+					<input
+						id="confirm-password"
+						className={`w-full px-3 py-2 mt-1 rounded-md ${
+							confirmPasswordError ? "border border-red-500" : ""
+						}`}
+						aria-labelledby="confirm-password-label"
+						name="confirmPassword"
+						type="password"
+						placeholder="Confirm Password"
+						minLength={8}
+						value={confirmPassword}
+						onChange={handleInputFieldChange}
+						required
+					/>
+				</div>
 
-export default RegistrationForm;
+				{confirmPasswordError && (
+					<p className="text-xs text-red-500 pt-1">Passwords do not match</p>
+				)}
+				{passwordReqError && (
+					<p className="text-xs text-red-500 pt-1 pl-10">
+						Password does not meet requirements.
+					</p>
+				)}
+				<br />
+				<button
+					id="registration-button"
+					className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+				>
+					Register
+				</button>
+			</form>
+			<div
+				className="text-center mt-4"
+				role="link"
+				aria-label="User Login Link"
+			>
+				Already have an account?
+				<a href="/login" className="text-blue-500 hover:text-blue-700">
+					{" "}
+					Login now
+				</a>
+			</div>
+		</div>
+	)
+}
+
+export default RegistrationForm

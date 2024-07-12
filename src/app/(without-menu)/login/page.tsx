@@ -84,7 +84,7 @@ const LoginPage: FC = () => {
 
 	return (
 		<div className="flex items-center justify-center min-h-screen bg-primary">
-			<div className="content w-full max-w-md">
+			<div className="w-full max-w-md">
 				<div className="text-3xl font-semibold text-gray-700 mb-5">
 					Ticketmate Login
 				</div>

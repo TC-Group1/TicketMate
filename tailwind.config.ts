@@ -24,6 +24,11 @@ const config: Config = {
         "light-text": "#A3A3A3",
         "light-border": "#C8CBD9",
         "input-back": "rgb(245,246,251)",
+        "error-border": "#EF4444",
+        "error-text": "#EF4444",
+      },
+      borderWidth: {
+        'error': '1px',
       },
     },
   },
