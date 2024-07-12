@@ -182,7 +182,7 @@ const RegistrationForm: FC<Props> = ({ setIsOpen }) => {
 					<input
 						id="email"
 						className={`w-full px-3 py-2 mt-1 rounded-md ${
-							emailError ? "border border-red-500" : ""
+							emailError ? "border-error border-error-border" : ""
 						}`}
 						aria-labelledby="email-label"
 						name="email"
@@ -251,7 +251,7 @@ const RegistrationForm: FC<Props> = ({ setIsOpen }) => {
 					<input
 						id="phone-number"
 						className={`w-full px-3 py-2 mt-1 rounded-md ${
-							phoneNumberError ? "border border-red-500" : ""
+							phoneNumberError ? "border-error border-error-border" : ""
 						}`}
 						aria-labelledby="phone-number-label"
 						name="phoneNumber"
@@ -288,7 +288,7 @@ const RegistrationForm: FC<Props> = ({ setIsOpen }) => {
 					<input
 						id="password"
 						className={`w-full px-3 py-2 mt-1 rounded-md focus:ring-2 ${
-							passwordError ? "border border-red-500" : ""
+							passwordError ? "border-error border-error-border" : ""
 						}`}
 						aria-labelledby="password-label"
 						name="password"
@@ -320,7 +320,7 @@ const RegistrationForm: FC<Props> = ({ setIsOpen }) => {
 					<input
 						id="confirm-password"
 						className={`w-full px-3 py-2 mt-1 rounded-md ${
-							confirmPasswordError ? "border border-red-500" : ""
+							confirmPasswordError ? "border-error border-error-border" : ""
 						}`}
 						aria-labelledby="confirm-password-label"
 						name="confirmPassword"
