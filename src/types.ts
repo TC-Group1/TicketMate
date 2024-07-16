@@ -24,6 +24,7 @@ export interface Ticket {
   status: string | undefined;
   lastModified: string | undefined;
   description: string | undefined;
+  sprint: string | null;
 }
 
 export interface Project {
@@ -60,11 +61,9 @@ export interface RegistrationFormData {
 }
 
 export interface Sprint {
+  id: string;
   title: string;
   dateStart: string;
   dateEnd: string;
-  tickets: Array<Ticket>;
-  project: Project;
-  points: number;
 }
 

@@ -12,7 +12,7 @@ const Dashboard: FC = () => {
       <h1 className="text-lg py-5">Dashboard</h1>
       <div className="flex w-full h-screen justify-around">
         {mockData?.projects && mockData.projects[0]?.tickets && (
-          <TicketBoard tickets={mockData.projects[0].tickets} />
+          <TicketBoard tickets={mockData.projects[0].tickets} sprints={mockData.projects[0].sprints} />
         )}
         {mockData?.projects && mockData.projects[0]?.team && (
           <TicketBoardTeam team={mockData.projects[0].team} />
