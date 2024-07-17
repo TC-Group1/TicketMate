@@ -1,8 +1,8 @@
 import React, { useState, useRef, FC, Dispatch, SetStateAction } from "react";
 import { RegistrationFormData } from "../types";
 import Registration from "@/hooks/auth/register";
-import ThreeCanvasWithLogo, { Logo } from "./canvas/Logo";
-import { Canvas } from "react-three-fiber";
+//import ThreeCanvasWithLogo, { Logo } from "./canvas/Logo";
+//import { Canvas } from "react-three-fiber";
 
 // margin top input field
 const marginTop = {

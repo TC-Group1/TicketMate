@@ -1,8 +1,8 @@
 "use client";
 
-import React, { useState, FC } from "react";
+import React, { useState, FC, useRef } from "react";
 import { useUserContext } from "../../../features/user/UserContextProvider";
-import { StyleSheet, UserContext } from "../../../types";
+import { StyleSheet, UserContextType } from "../../../types";
 
 // Modal additions
 import Modal from "@/components/modals/modal";
@@ -11,11 +11,17 @@ import RegistrationForm from "../../../components/registration-form";
 const LoginPage: FC = () => {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [error, setError] = useState<boolean>(false);
   const [userNotification, setUserNotification] = useState<string>("");
 
   const [registrationModalOpen, setRegistrationModalOpen] = useState(false);
 
-  const userContext: UserContext | null = useUserContext();
+  const showErrorRef = useRef<boolean>(false);
+  const userContext: UserContextType | null = useUserContext();
+
+  //Email and Phone Number Regex
+  const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
+  const phoneNumberRegex = /^[2-9]{1}[0-9]{2}[2-9]{1}[0-9]{2}[0-9]{4}$/;
 
   const handleUsernameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setUsername(event.target.value);
@@ -61,7 +67,7 @@ const LoginPage: FC = () => {
         }
       }
 
-      userContext?.useLoginSubmission(usernameUpdate, password);
+      userContext?.submitLogin(usernameUpdate, password);
       console.log("Trying to login");
     }
   }
@@ -115,7 +121,7 @@ const LoginPage: FC = () => {
           </div>
           <button
             className="my-4 w-full h-12 text-lg font-semibold bg-light-purple rounded-3xl shadow text-white focus:bg-dark-purple focus:shadow-inner"
-            onClick={(e) => handleSubmit(username, password, e)}
+            onClick={handleSubmit}
           >
             Sign in
           </button>
