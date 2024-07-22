@@ -1,8 +1,14 @@
-import React, { useState, useRef, FC, Dispatch, SetStateAction } from "react"
-import { RegistrationFormData } from "../types"
-import Registration from "@/hooks/auth/register"
-import ThreeCanvasWithLogo, { Logo } from "./canvas/Logo"
-import { Canvas } from "react-three-fiber"
+import React, { useState, useRef, FC, Dispatch, SetStateAction } from "react";
+import { RegistrationFormData } from "../types";
+import Registration from "@/hooks/auth/register";
+import ThreeCanvasWithLogo, { Logo } from "./canvas/Logo";
+import { Canvas } from "react-three-fiber";
+import { emailRegex, passwordRegex, phoneNumberRegex } from "../utils/regex";
+
+// margin top input field
+const marginTop = {
+  marginTop: "20px",
+};
 
 interface Props {
 	setIsOpen: Dispatch<SetStateAction<boolean>>
@@ -62,10 +68,11 @@ const RegistrationForm: FC<Props> = ({ setIsOpen }) => {
 			setConfirmPassword(e.target.value)
 		}
 
-		e.target.name === "confirmPassword"
-			? setConfirmPassword(e.target.value)
-			: setFormData({ ...formData, [e.target.name]: e.target.value })
-	}
+    e.target.name === "confirmPassword"
+      ? setConfirmPassword(e.target.value)
+      : setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
 
 	// ERROR HANDLING FUNCTIONS
 	// Input fields
