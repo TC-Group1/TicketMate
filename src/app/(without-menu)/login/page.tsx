@@ -27,14 +27,14 @@ const LoginPage: FC = () => {
 
 	const handleUsernameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		setUsername(event.target.value)
-		// setError(false);
-		// showErrorRef.current = false;
+		setError(false);
+		showErrorRef.current = false;
 	}
 
 	const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		setPassword(event.target.value)
-		// setError(false);
-		// showErrorRef.current = false;
+		setError(false);
+		showErrorRef.current = false;
 	}
 
 	function handleSubmit(
@@ -44,8 +44,9 @@ const LoginPage: FC = () => {
 
 		if (username === "" || password === "") {
 			setUserNotification("Please enter a username and password")
-			// setError(true);
-			// showErrorRef.current = true;
+			setError(true);
+			showErrorRef.current = true;
+      return;
 		}
 
 		if (username && password) {
