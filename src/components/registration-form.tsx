@@ -3,7 +3,6 @@ import { RegistrationFormData } from "../types";
 import Registration from "@/hooks/auth/register";
 import ThreeCanvasWithLogo, { Logo } from "./canvas/Logo";
 import { Canvas } from "react-three-fiber";
-import { emailRegex, passwordRegex, phoneNumberRegex } from "../utils/regex";
 
 // margin top input field
 const marginTop = {
@@ -67,6 +66,11 @@ const RegistrationForm: FC<Props> = ({ setIsOpen }) => {
       : setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  // REGEX FOR EMAIL, PASSWORD, PHONE NUMBERS
+  const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
+  const passwordRegex =
+    /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
+  const phoneNumberRegex = /^[2-9]{1}[0-9]{2}[2-9]{1}[0-9]{2}[0-9]{4}$/;
 
   // ERROR HANDLING FUNCTIONS
   // Input fields
