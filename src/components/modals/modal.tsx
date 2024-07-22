@@ -17,7 +17,7 @@ interface Props {
   children: ReactNode;
 }
 
-const modal: FC<Props> = ({
+const Modal: FC<Props> = ({
   isOpen,
   setIsOpen,
   children,
@@ -36,24 +36,22 @@ const modal: FC<Props> = ({
   return (
     <dialog
       ref={dialogRef}
-      className={
-        isOpen
-          ? "flex fixed inset-0 m-auto border-4 backdrop:bg-dark-purple/25"
-          : undefined
-      }
+      className={`fixed inset-0 m-auto border-4 backdrop-blur-md ${
+        isOpen ? "flex bg-dark-purple/25" : "hidden"
+      }`}
     >
-      {closeButton ? (
+      {closeButton && (
         <button
           type="button"
           title="close"
-          className="absolute top-2 right-2 h-fit w-fit"
+          className="absolute top-2 right-2 p-2 rounded-full bg-white shadow-md"
           onClick={onClose}
         >
-          <AiOutlineClose />
+          <AiOutlineClose className="text-gray-700"/>
         </button>
-      ) : null}
+      )}
       {children}
     </dialog>
   );
 };
-export default modal;
+export default Modal;

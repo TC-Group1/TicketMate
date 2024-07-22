@@ -19,10 +19,10 @@ const CreateTicketModal: React.FC<CreateTicketModalProps> = ({
   };
 
   return (
-    <Modal {...{ isOpen, setIsOpen }} closeButton>
+    <Modal isOpen={isOpen} setIsOpen={setIsOpen} closeButton>
       <div className="bg-white p-4 rounded shadow-lg">
         <h2 className="text-2xl mb-4">Create New Ticket</h2>
-        <form onSubmit={(event) => handleSubmit(event)}>
+        <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <label className="text-sm font-bold mb-2" htmlFor="title">
               Title
