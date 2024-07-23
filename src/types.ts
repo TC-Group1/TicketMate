@@ -37,17 +37,13 @@ export interface Project {
 export interface UserContextType {
   user: User | null;
   setUser: React.Dispatch<React.SetStateAction<User | null>>;
-  isAuthenticated: Boolean;
-  setIsAuthenticated: React.Dispatch<React.SetStateAction<Boolean>>;
+  isAuthenticated: boolean;
+  setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
   error: string | null;
   setError: React.Dispatch<React.SetStateAction<string | null>>;
-  isLoading: Boolean;
-  setIsLoading: React.Dispatch<React.SetStateAction<Boolean>>;
-  submitLogin: (
-    username: string,
-    password: string
-    //event: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => void;
+  isLoading: boolean;
+  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
+  submitLogin: (username: string, password: string) => void;
 }
 
 // is "| null" necessary for registration? If so, why?

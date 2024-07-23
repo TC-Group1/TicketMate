@@ -5,10 +5,6 @@ import ThreeCanvasWithLogo, { Logo } from "./canvas/Logo";
 import { Canvas } from "react-three-fiber";
 import { emailRegex, passwordRegex, phoneNumberRegex } from "../utils/regex";
 
-// margin top input field
-const marginTop = {
-  marginTop: "20px",
-};
 
 interface Props {
 	setIsOpen: Dispatch<SetStateAction<boolean>>
@@ -154,11 +150,11 @@ const RegistrationForm: FC<Props> = ({ setIsOpen }) => {
 			role="form"
 			id="registration-form"
 			aria-label="Registration Information"
-			className="p-8 bg-gray-200 rounded-lg shadow-md"
+			className="p-8 bg-login-background rounded-lg shadow-md"
 		>
 			<h1
 				id="TicketMate-registration-form"
-				className="text-2xl font-bold mb-4 text-center"
+				className="text-text-lg font-semibold mb-[35px] text-gray-dark"
 				role="heading"
 				aria-level={1}
 				aria-label="TicketMate Registration"
@@ -174,16 +170,16 @@ const RegistrationForm: FC<Props> = ({ setIsOpen }) => {
 				className="opacity-100"
 				aria-labelledby="TicketMate-registration-form"
 			>
-				<div className="field">
+				<div className="relative flex h-field-height w-full mb-4">
 					{formData.email.length > 0 && (
-						<label className="text-sm font-semibold" htmlFor="email">
+						<label className="absolute top-1/2 -translate-y-[150%] left-[25px] bg-login-background text-field-label-text pointer-events-none" htmlFor="email">
 							Email
 						</label>
 					)}
 					<input
 						id="email"
-						className={`w-full px-3 py-2 mt-1 rounded-md ${
-							emailError ? "border-error border-error-border" : ""
+						className={`h-full w-full pl-[25px] outline-none border-none text-lg bg-login-background text-field-input-text rounded-field-input shadow-field-input ${
+							emailError ? "border-error border-error-byorder" : ""
 						}`}
 						aria-labelledby="email-label"
 						name="email"
@@ -204,16 +200,16 @@ const RegistrationForm: FC<Props> = ({ setIsOpen }) => {
 					<br />
 				</div>
 
-				<div className="mb-4">
+				<div className="relative flex h-field-height w-full mb-4">
 					{formData.firstName.length > 0 && (
-						<label className="text-sm font-semibold" htmlFor="first-name">
+						<label className="absolute top-1/2 -translate-y-[150%] left-[25px] bg-login-background text-field-label-text pointer-events-none" htmlFor="first-name">
 							First Name
 						</label>
 					)}
 
 					<input
 						id="first-name"
-						className="w-full px-3 py-2 mt-1 rounded-md"
+						className="h-full w-full pl-[25px] outline-none border-none text-lg bg-login-background text-field-input-text rounded-field-input shadow-field-input"
 						aria-labelledby="first-name-label"
 						name="firstName"
 						type="text"
@@ -224,15 +220,15 @@ const RegistrationForm: FC<Props> = ({ setIsOpen }) => {
 					/>
 				</div>
 
-				<div className="mb-4">
+				<div className="relative flex h-field-height w-full mb-4">
 					{formData.lastName.length > 0 && (
-						<label className="text-sm font-semibold" htmlFor="last-name">
+						<label className="absolute top-1/2 -translate-y-[150%] left-[25px] bg-login-background text-field-label-text pointer-events-none" htmlFor="last-name">
 							Last Name
 						</label>
 					)}
 					<input
 						id="last-name"
-						className="w-full px-3 py-2 mt-1 rounded-md"
+						className="h-full w-full pl-[25px] outline-none border-none text-lg bg-login-background text-field-input-text rounded-field-input shadow-field-input"
 						aria-labelledby="last-name-label"
 						name="lastName"
 						type="text"
@@ -243,15 +239,15 @@ const RegistrationForm: FC<Props> = ({ setIsOpen }) => {
 					/>
 				</div>
 
-				<div className="mb-4">
+				<div className="relative flex h-field-height w-full mb-4">
 					{formData.phoneNumber.length > 0 && (
-						<label className="text-sm font-semibold" htmlFor="phone-number">
+						<label className="absolute top-1/2 -translate-y-[150%] left-[25px] bg-login-background text-field-label-text pointer-events-none" htmlFor="phone-number">
 							Phone Number
 						</label>
 					)}
 					<input
 						id="phone-number"
-						className={`w-full px-3 py-2 mt-1 rounded-md ${
+						className={`h-full w-full pl-[25px] outline-none border-none text-lg bg-login-background text-field-input-text rounded-field-input shadow-field-input ${
 							phoneNumberError ? "border-error border-error-border" : ""
 						}`}
 						aria-labelledby="phone-number-label"
@@ -280,15 +276,15 @@ const RegistrationForm: FC<Props> = ({ setIsOpen }) => {
 					</div>
 				)}
 
-				<div className="mb-4">
+				<div className="relative flex h-field-height w-full mb-2">
 					{formData.password.length > 0 && (
-						<label className="text-sm font-semibold" htmlFor="password">
+						<label className="absolute top-1/2 -translate-y-[150%] left-[25px] bg-login-background text-field-label-text pointer-events-none" htmlFor="password">
 							Password
 						</label>
 					)}
 					<input
 						id="password"
-						className={`w-full px-3 py-2 mt-1 rounded-md focus:ring-2 ${
+						className={`h-full w-full pl-[25px] outline-none border-none text-lg bg-login-background text-field-input-text rounded-field-input shadow-field-input ${
 							passwordError ? "border-error border-error-border" : ""
 						}`}
 						aria-labelledby="password-label"
@@ -306,21 +302,21 @@ const RegistrationForm: FC<Props> = ({ setIsOpen }) => {
 						</p>
 					)}
 				</div>
-				<div
+				<div  className="cursor-pointer text-right text-xs mb-2"
 					onClick={() => setShowPasswordRequirements(!showPasswordRequirements)}
 				>
 					{showPasswordRequirements ? "Hide requirements" : "Show requirements"}
 				</div>
 
-				<div className="mb-4">
+				<div className="relative flex h-field-height w-full">
 					{confirmPassword.length > 0 && (
-						<label className="text-sm font-semibold" htmlFor="confirm-password">
+						<label className="absolute top-1/2 -translate-y-[150%] left-[25px] bg-login-background text-field-label-text pointer-events-none" htmlFor="confirm-password">
 							Confirm Password
 						</label>
 					)}
 					<input
 						id="confirm-password"
-						className={`w-full px-3 py-2 mt-1 rounded-md ${
+						className={`h-full w-full pl-[25px] outline-none border-none text-lg bg-login-background text-field-input-text rounded-field-input shadow-field-input ${
 							confirmPasswordError ? "border-error border-error-border" : ""
 						}`}
 						aria-labelledby="confirm-password-label"
@@ -345,18 +341,18 @@ const RegistrationForm: FC<Props> = ({ setIsOpen }) => {
 				<br />
 				<button
 					id="registration-button"
-					className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+					className="w-[70%] h-10 my-1 leading-4"
 				>
 					Register
 				</button>
 			</form>
 			<div
-				className="text-center mt-4"
+				className="my-2 text-gray-600 text-[15.5px]"
 				role="link"
 				aria-label="User Login Link"
 			>
 				Already have an account?
-				<a href="/login" className="text-blue-500 hover:text-blue-700">
+				<a href="/login" className="text-light-purple hover:text-dark-purple">
 					{" "}
 					Login now
 				</a>

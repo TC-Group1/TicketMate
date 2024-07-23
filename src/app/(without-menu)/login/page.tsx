@@ -78,7 +78,7 @@ const LoginPage: FC = () => {
 				return
 			}
 
-			userContext?.useLoginSubmission(usernameUpdate, password)
+			userContext?.submitLogin(usernameUpdate, password)
 			console.log("Trying to login")
 		}
 	}
