@@ -32,7 +32,7 @@ export const UserContextProvider = ({ children } : any) => {
         }
       };
 
-    const providerProps = {
+    const providerProps: UserContextType = {
         user,
         setUser,
         isAuthenticated,

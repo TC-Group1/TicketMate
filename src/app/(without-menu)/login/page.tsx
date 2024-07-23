@@ -78,7 +78,7 @@ const LoginPage: FC = () => {
 				return
 			}
 
-			userContext?.submitLogin(usernameUpdate, password)
+			userContext?.submitLogin(usernameUpdate, password, event)
 			console.log("Trying to login")
 		}
 	}
@@ -182,8 +182,6 @@ const LoginPage: FC = () => {
       </div>
     </div>
   );
-};
-
-        
+};        
 
 export default LoginPage
