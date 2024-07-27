@@ -24,6 +24,7 @@ const config: Config = {
         "light-text": "#A3A3A3",
         "light-border": "#C8CBD9",
         "input-back": "rgb(245,246,251)",
+        "light-yellow": "rgb(254 240 138)",
       },
     },
   },

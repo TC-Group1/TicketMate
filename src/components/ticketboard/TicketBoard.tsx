@@ -1,11 +1,13 @@
 import { FC } from "react";
 import { Sprint, Ticket } from "@/types";
-import TicketTable from "./TicketTable";
-import SprintDisplay from "./SprintDisplay";
-import { sprints } from "@/mockData.json";
-import CreateTicketButton from "./CreateTicketButton";
+import TicketDisplay from "./TicketDisplay";
 
-const TicketBoard: FC<{ tickets: Ticket[] }> = ({ tickets }) => {
+interface Props {
+  tickets: Array<Ticket>;
+  sprints: Array<Sprint>;
+}
+
+const TicketBoard: FC<Props> = ({ tickets, sprints }) => {
   return (
     <div className="flex flex-col gap-4 items-center pr-5 w-full border-r-[1px] border-light-border">
       <div className="flex justify-between w-full pr-5">
@@ -15,14 +17,15 @@ const TicketBoard: FC<{ tickets: Ticket[] }> = ({ tickets }) => {
         </button>
       </div>
       {sprints &&
-        sprints.map((sprint: Sprint) => <SprintDisplay {...{ sprint }} />)}
-      <div className="border-spacing-x-3 p-2 w-full">
-        <h3 className="text-light-text text-xs">
-          Tickets from xyz project (still need to implement project grab)
-        </h3>
-        <TicketTable {...{ tickets }} />
-        <CreateTicketButton />
-      </div>
+        sprints.map((sprint: Sprint) => (
+          <TicketDisplay
+            {...{ sprint }}
+            tickets={tickets.filter((ticket) => ticket.sprint === sprint.id)}
+          />
+        ))}
+      <TicketDisplay
+        tickets={tickets.filter((ticket) => ticket.sprint === null)}
+      />
     </div>
   );
 };

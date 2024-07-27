@@ -38,7 +38,7 @@ const modal: FC<Props> = ({
       ref={dialogRef}
       className={
         isOpen
-          ? "flex fixed inset-0 m-auto border-4 backdrop:bg-dark-purple/25"
+          ? "flex fixed inset-0 m-auto backdrop:bg-dark-purple/25"
           : undefined
       }
     >
