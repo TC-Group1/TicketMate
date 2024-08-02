@@ -97,6 +97,95 @@
           "description": "This is a new feature that needs to be added to the application."
         }
       ]
+    },
+    {
+      "id": 2,
+      "name": "Project 2",
+      "isActive": true,
+      "team": [
+        {
+          "id": "1",
+          "firstName": "John",
+          "lastName": "Brown",
+          "email": "test@gmail.com",
+          "avatar": "https://www.w3schools.com/howto/img_avatar.png",
+          "role": "Owner",
+          "phoneNumber": "123-456-7890"
+        },
+        {
+          "id": "1",
+          "firstName": "Jane",
+          "lastName": "Mansfield",
+          "email": "test@gmail.com",
+          "avatar": "https://www.w3schools.com/howto/img_avatar.png",
+          "role": "Project Manager",
+          "phoneNumber": "123-456-7890"
+        },
+        {
+          "id": "1",
+          "firstName": "Susan",
+          "lastName": "Sontag",
+          "email": "test@gmail.com",
+          "avatar": "https://www.w3schools.com/howto/img_avatar.png",
+          "role": "Developer",
+          "phoneNumber": "123-456-7890"
+        },
+        {
+          "id": "1",
+          "firstName": "James",
+          "lastName": "Workshop",
+          "email": "test@gmail.com",
+          "avatar": "https://www.w3schools.com/howto/img_avatar.png",
+          "role": "Developer",
+          "phoneNumber": "123-456-7890"
+        }
+      ],
+      "tickets": [
+        {
+          "id": 1,
+          "title": "Feature five",
+          "assignees": ["John Brown", "Jane Mansfield"],
+          "priority": "High",
+          "dateCreated": "2021-09-01",
+          "createdBy": "John Brown",
+          "status": "In Progress",
+          "lastModified": "2021-09-01",
+          "description": "This is a new feature that needs to be added to the application."
+        },
+        {
+          "id": 2,
+          "title": "Feature six",
+          "assignees": ["John Brown", "Jane Mansfield"],
+          "priority": "High",
+          "dateCreated": "2021-09-01",
+          "createdBy": "John Brown",
+          "status": "New",
+          "lastModified": "2021-09-01",
+          "description": "This is a new feature that needs to be added to the application."
+        },
+        {
+          "id": 3,
+          "title": "Feature seven",
+          "assignees": ["John Brown", "Jane Mansfield"],
+          "priority": "High",
+          "dateCreated": "2021-09-01",
+          "createdBy": "John Brown",
+          "status": "Completed",
+          "lastModified": "2021-09-01",
+          "description": "This is a new feature that needs to be added to the application."
+        },
+        {
+          "id": 4,
+          "title": "Feature eight",
+          "assignees": ["John Brown", "Jane Mansfield"],
+          "priority": "High",
+          "dateCreated": "2021-09-01",
+          "createdBy": "John Brown",
+          "status": "In Progress",
+          "lastModified": "2021-09-01",
+          "description": "This is a new feature that needs to be added to the application."
+        }
+      ]
     }
   ],
   "sprints": [

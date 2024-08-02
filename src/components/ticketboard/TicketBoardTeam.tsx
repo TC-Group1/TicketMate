@@ -2,13 +2,16 @@ import { FC } from "react";
 import { User } from "@/types";
 import { AiOutlineUser } from "react-icons/ai";
 
-const TicketBoardTeam: FC<{ team: User[] }> = ({ team }) => {
+interface Props {
+  name: string | undefined;
+  team: Array<User>;
+}
+
+const TicketBoardTeam: FC<Props> = ({ name, team }) => {
   return (
     <div className="flex flex-col w-full items-center pl-5">
       <h2 className="text-sm font-semibold pb-8 self-start">Team</h2>
-      <h3 className="text-xs text-light-text self-start">
-        Project name will go here
-      </h3>
+      <h3 className="text-xs text-light-text self-start">{name}</h3>
       <br />
       <ul className="w-3/4 self-start">
         {team.map((member) => (
