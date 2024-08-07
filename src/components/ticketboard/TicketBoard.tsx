@@ -10,7 +10,10 @@ const TicketBoard: FC<{ tickets: Ticket[] }> = ({ tickets }) => {
     <div className="flex flex-col gap-4 items-center pr-5 w-full border-r-[1px] border-light-border">
       <div className="flex justify-between w-full pr-5">
         <h2 className="text-sm font-semibold">My Tickets</h2>
-        <button className="flex items-center justify-center w-28 h-8 text-xs bg-[#FBFCFE] border-[.5px] border-solid border-[#DDE4F0] shadow-none rounded text-light-purple">
+        <button
+          className="flex items-center justify-center w-28 h-8 text-xs bg-[#FBFCFE] border-[.5px] border-solid border-[#DDE4F0] shadow-none rounded text-light-purple"
+          type="button"
+        >
           New Sprint
         </button>
       </div>
