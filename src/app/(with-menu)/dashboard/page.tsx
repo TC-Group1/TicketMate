@@ -1,3 +1,4 @@
+
 "use client";
 
 import React, { ChangeEvent, useEffect, useState } from "react";
@@ -8,8 +9,10 @@ import data from "@/mockData.json";
 import { Project } from "@/types";
 import NewProjectButton from "./NewProjectButton";
 
+
 const Dashboard: FC = () => {
-  const mockData = data;
+	const mockData = data
+
 
   const [currentProject, setCurrentProject] = useState<Project | null>(null);
 
@@ -56,4 +59,5 @@ const Dashboard: FC = () => {
   );
 };
 
-export default Dashboard;
+
+export default Dashboard

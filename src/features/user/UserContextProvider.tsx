@@ -8,9 +8,9 @@ const UserContext = createContext<UserContextType | null>(null);
 
 export const UserContextProvider = ({ children } : any) => {
     const [user, setUser] = useState<User | null>(null);
-    const [isLoading, setIsLoading] = useState<Boolean>(true);
+    const [isLoading, setIsLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
-    const [isAuthenticated, setIsAuthenticated] = useState<Boolean>(false);
+    const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
 
     const submitLogin = async (username: string, password: string, event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         event.preventDefault();
@@ -32,7 +32,7 @@ export const UserContextProvider = ({ children } : any) => {
         }
       };
 
-    const providerProps = {
+    const providerProps: UserContextType = {
         user,
         setUser,
         isAuthenticated,
